@@ -18,8 +18,21 @@ export default{
 
         const url  = 'member/block'
 
+        const payload = null
+        return Server.post_data(url,payload,params)
+    },
+    unblockMember(memberId){
+        const params = {id:memberId}
 
-        return Server.post_data_params(url,params)
+        const url  = 'member/unblock'
+
+        const payload = null
+        return Server.post_data(url,payload,params)
+    },
+    getBlockMembers(){
+        const url = 'member/block'
+
+        return Server.get_data(url)
     },
     getMembers(){
         const url = 'member/get'

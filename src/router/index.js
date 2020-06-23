@@ -50,6 +50,14 @@ const router = new Router({
             //   }
         },
         {
+            path:'/block/member',
+            name:'BlockMemberList',
+            component:lazyLoad('BlockMemberList'),
+            // meta:{
+            //     forAuth:true
+            //   }
+        },
+        {
             path:'/tnc',
             name:'tnc',
             component:lazyLoad('Tnc'),

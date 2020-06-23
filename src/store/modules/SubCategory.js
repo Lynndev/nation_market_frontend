@@ -8,7 +8,7 @@ const getters = {
 }
 const mutations = {
     SET_SUB_CATEGORIES(state,subCategories){
-        state.subCategories = subCategories.data.data.data
+        state.subCategories = subCategories.data.data
     }
 }
 

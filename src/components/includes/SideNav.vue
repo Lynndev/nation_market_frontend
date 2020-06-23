@@ -15,52 +15,20 @@
         </v-list-item-content>
       </v-list-item>
       </router-link>
-        <v-list-item to="/" class="link-list-item">
+
+        <v-list-item v-for="sideList in sideLists" :key="sideList.name" :to="sideList.route" class="link-list-item">
 
           <v-list-item-action>
-            <v-icon class="link-icon">mdi-view-dashboard-outline</v-icon>
+            <v-icon class="link-icon">{{ sideList.icon }}</v-icon>
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title class="link-title">Dashboard</v-list-item-title>
+            <v-list-item-title class="link-title">{{ sideList.name }}</v-list-item-title>
           </v-list-item-content>
           
         </v-list-item>
-        <v-list-item to="/member" class="link-list-item">
+        
 
-          <v-list-item-action>
-            <v-icon class="link-icon">mdi-account-group-outline</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title class="link-title">Member</v-list-item-title>
-          </v-list-item-content>
-          
-        </v-list-item>
-
-        <v-list-item to="/tnc" class="link-list-item">
-
-          <v-list-item-action>
-            <v-icon class="link-icon">mdi-script-text-outline</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title class="link-title">Terms&Conditions</v-list-item-title>
-          </v-list-item-content>
-          
-        </v-list-item>
-
-        <v-list-item to="/category" class="link-list-item">
-
-          <v-list-item-action>
-            <v-icon class="link-icon">mdi-clipboard-text-outline</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title class="link-title">Category</v-list-item-title>
-          </v-list-item-content>
-          
-        </v-list-item>
         <v-list-item @click="logout" class="link-list-item">
 
           <v-list-item-action>
@@ -85,7 +53,14 @@ export default {
   },
   data(){
     return{
-     
+     sideLists:[
+       {route:'/',name:'Dashboard',icon:'mdi-view-dashboard-outline'},
+       {route:'/member',name:'Member',icon:'mdi-account-group-outline'},
+       {route:'/block/member',name:'Block Member',icon:'mdi-account-group-outline'},
+       {route:'/tnc',name:'Terms&Conditions',icon:'mdi-script-text-outline'},
+       {route:'/category',name:'Category',icon:'mdi-clipboard-text-outline'},
+       
+     ]
     }
   },
   computed:{
