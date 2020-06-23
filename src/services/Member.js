@@ -13,6 +13,14 @@ export default{
 
         return Server.post_data(url,payload,params)
     },
+    blockMember(memberId){
+        const params = {id:memberId}
+
+        const url  = 'member/block'
+
+
+        return Server.post_data_params(url,params)
+    },
     getMembers(){
         const url = 'member/get'
 

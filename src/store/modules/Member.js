@@ -54,6 +54,18 @@ const actions = {
             })
        
     },
+    blockMember({dispatch},memberId){
+        Member.blockMember(memberId)
+            .then(() => {
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'Block Member Successfully'
+                }
+                    
+                dispatch('Notification/add',notification,{ root: true })
+            })
+    },
     getMembers({commit}){
         Member.getMembers().then(members => {
                 console.log(members);

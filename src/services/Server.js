@@ -49,6 +49,22 @@ export default {
             console.log("Error is",error);
         }
     },
+    async post_data_params(url,params){
+        let completeUrl = `${url}`
+
+        if(params){
+            Object.keys(params).forEach((key) => {
+                completeUrl = completeUrl + `?${key}=${params[key]}`
+            })
+        }
+        try{
+
+            const response = await apiClient.post(completeUrl)
+            return response
+        }catch(error){
+            console.log("Error is",error);
+        }
+    },
     async login(url,payload){
         try{
             const response = await apiClient.post(url,payload)

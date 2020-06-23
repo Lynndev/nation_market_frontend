@@ -22,7 +22,7 @@ const actions = {
                 const notification = {
                     type:'success',
                     status:true,
-                     message:'terms and condition store Successfully'
+                     message:'terms and condition update Successfully'
                 }
                     
                 dispatch('Notification/add',notification,{ root: true })

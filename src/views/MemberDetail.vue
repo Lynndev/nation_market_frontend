@@ -31,9 +31,7 @@
                 outlined
                 clearable
                 dense>
-            </v-text-field>
-            <label>Block</label>
-            
+            </v-text-field>            
             <v-row v-if="member.back_nrc">
               <v-col md="12">
                 <p class="text-center">NRC FRONT</p>
@@ -49,12 +47,18 @@
             </v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn v-if="!member.name" type="submit" @click="storeMember" class="submit-btn">
+            <v-btn v-if="!member.code" type="submit" @click="storeMember" class="submit-btn">
                 <v-icon small left>mdi-checkbox-marked-circle-outline</v-icon>Submit
             </v-btn>
-            <v-btn v-else type="submit" @click="updateMember" class="edit-btn">
+            <template v-else >
+               <v-btn type="submit" @click="blockMember" class="submit-btn">
+                <v-icon small left>mdi-account-cancel-outline</v-icon>Block this member
+              </v-btn>
+               <v-btn type="submit" @click="updateMember" class="edit-btn">
                 <v-icon small left>mdi-pencil-outline</v-icon>update
-            </v-btn>
+              </v-btn>
+            </template>
+           
             </v-card-actions>
         </v-card>
         </v-col>
@@ -132,6 +136,11 @@ export default {
             this.$v.$reset()
 
           }
+      },
+      blockMember(){
+        if(this.member.id){
+          this.$store.dispatch('Member/blockMember',this.member.id)
+        }
       },
       updateMember(){
         this.$v.$touch()

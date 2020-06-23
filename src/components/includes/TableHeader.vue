@@ -4,7 +4,7 @@
              <h2 class="header-title">Member Table</h2>
           </div>
           <div>
-            <v-btn to="/member/store" class="add-new-btn">
+            <v-btn to="/member/detail" class="add-new-btn">
               <v-icon left>mdi-plus-circle-outline</v-icon>
               Add new
             </v-btn>
