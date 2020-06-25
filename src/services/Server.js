@@ -4,12 +4,12 @@ import NProgress from 'nprogress'
 /*
     for local backend url
     const offline = 'http://localhost:8000/api/dashboard'
+
   */
  
-
   /*
     for online backend url
-     
+    
    */
   const online = ' http://nationmarket.82206954-6-20190910110805.webstarterz.com/api/dashboard/'
 

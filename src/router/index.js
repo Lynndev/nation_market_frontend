@@ -20,72 +20,72 @@ const router = new Router({
             path:'/',
             name:'home',
             component:lazyLoad('Home'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/profile',
             name:'adminProfile',
             component:lazyLoad('AdminProfile'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/member',
             name:'member',
             component:lazyLoad('Member'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/member/detail',
             name:'MemberDetail',
             component:lazyLoad('MemberDetail'),
             props: true,
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/block/member',
             name:'BlockMemberList',
             component:lazyLoad('BlockMemberList'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/tnc',
             name:'tnc',
             component:lazyLoad('Tnc'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         },
         {
             path:'/category',
             name:'category',
             component:lazyLoad('Category'),
-            // meta:{
-            //     forAuth:true
-            //   }
+            meta:{
+                forAuth:true
+            }
         }
 
     ]
 })
 
-// router.beforeEach((to,from,next) => {
-//     const loggedIn = localStorage.getItem('token')
+router.beforeEach((to,from,next) => {
+    const loggedIn = localStorage.getItem('token')
   
-//     if(to.matched.some(record => record.meta.forAuth) && !loggedIn){
-//       next('/login')
-//     }else{
-//         next()
-//     }
+    if(to.matched.some(record => record.meta.forAuth) && !loggedIn){
+      next('/login')
+    }else{
+        next()
+    }
     
-// })
+})
   
 export default router
