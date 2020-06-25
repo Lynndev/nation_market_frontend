@@ -56,7 +56,6 @@ export default {
      sideLists:[
        {route:'/',name:'Dashboard',icon:'mdi-view-dashboard-outline'},
        {route:'/member',name:'Member',icon:'mdi-account-group-outline'},
-       {route:'/block/member',name:'Block Member',icon:'mdi-account-group-outline'},
        {route:'/tnc',name:'Terms&Conditions',icon:'mdi-script-text-outline'},
        {route:'/category',name:'Category',icon:'mdi-clipboard-text-outline'},
        

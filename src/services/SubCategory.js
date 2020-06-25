@@ -6,6 +6,16 @@ export default{
 
         return Server.post_data(url,subCategory)
     },
+    updateSubCategory(payload){
+        const url = '/sub_category/update'
+
+        return Server.post_data(url,payload)
+    },
+    deleteSubCategory(subCatId){
+        const url = '/sub_category/delete'
+
+        return Server.post_data(url,subCatId)
+    },
     getSubCategories(){
         const url = 'sub_category/get'
 

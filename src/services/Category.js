@@ -6,6 +6,16 @@ export default{
 
         return Server.post_data(url,category)
     },
+    updateCategory(payload){
+        const url = '/category/update'
+
+        return Server.post_data(url,payload)
+    },
+    deleteCategory(catId){
+        const url = '/category/delete'
+
+        return Server.post_data(url,catId)
+    },
     getMainCategories(){
         const url  = '/main_category/get'
 
@@ -18,7 +28,7 @@ export default{
     },
     getCategoriesByMainId(mainId){
         const params = {main_category_id:mainId}
-        const url = 'category/get/'
+        const url = 'category/get'
 
         return Server.get_data(url,params)
     },

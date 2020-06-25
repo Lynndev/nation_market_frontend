@@ -52,8 +52,9 @@ const actions = {
        
     },
     logout({commit}){
-        User.logout().then(() => {
-
+        User.logout()
+            .then((response) => {
+                console.log(response);
             localStorage.clear()
 
             commit('CHANGE_LOGGED_IN_STATUS')

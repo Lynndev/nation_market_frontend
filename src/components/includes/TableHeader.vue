@@ -8,6 +8,8 @@
               <v-icon left>mdi-plus-circle-outline</v-icon>
               Add new
             </v-btn>
+            
+            <slot></slot>
           </div>
     </div>
 </template>

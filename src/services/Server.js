@@ -3,18 +3,18 @@ import NProgress from 'nprogress'
 
 /*
     for local backend url
-   
+    const offline = 'http://localhost:8000/api/dashboard'
   */
- const offline = 'http://localhost:8000/api/dashboard'
+ 
 
   /*
     for online backend url
-     const online = ' http://nationmarket.82206954-6-20190910110805.webstarterz.com/api/dashboard/'
+     
    */
- 
+  const online = ' http://nationmarket.82206954-6-20190910110805.webstarterz.com/api/dashboard/'
 
 const apiClient = axios.create({
-    baseURL:offline
+    baseURL:online
 })
 
 apiClient.interceptors.request.use(config => {
@@ -84,7 +84,6 @@ export default {
         try {
 
             const response = await apiClient.get(completeUrl)
-            console.log(response);
             return response
 
         } catch (error) {

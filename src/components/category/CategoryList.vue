@@ -21,13 +21,34 @@
         :headers="headers"
         :items="categories"
         :items-per-page="5"
-        @click:row="getSubCategoriesByCatId"
         >
+        <template v-slot:item.name="{ item }" >
+          <span class="link-click" @click="getSubCategoriesByCatId(item)">{{item.name}}</span>
+        </template>
+
+        <template v-slot:item.actions="{ item }">
+          <v-btn @click="showUpdateCategory(item)" color="grey darken-1" class="white--text" depressed>
+            <v-icon small >
+              mdi-pencil-outline
+            </v-icon>
+           <v-icon small >
+              mdi-delete-outline
+            </v-icon>
+          </v-btn>
+        </template>
       </v-data-table>
+
+      <update-category 
+      :dialog="dialog"
+      :oneCategory="oneCategory"
+      @changeDialog="changeDialog"
+       />
     </v-card>
 </template>
 
 <script>
+
+import UpdateCategory from '@/components/category/modal/UpdateCategory'
 
 export default {
     props:{
@@ -38,13 +59,20 @@ export default {
             type:Array
         }
     },
+    components:{
+      UpdateCategory
+    },
+
     data() {
-    return {
-      headers: [
-        { text: "Name", value: "name",align:'center'},
-        { text: "Myanmar Name", value: "mm_name",align:'center'},
-        { text: "Chinese Name", value: "cn_name",align:'center'},
-      ],
+      return {
+        dialog:false,
+        oneCategory:{},
+        headers: [
+          { text: "Name", value: "name",},
+          { text: "Myanmar Name", value: "mm_name",},
+          { text: "Chinese Name", value: "cn_name",},
+          { text: "actions",value:'actions'},
+        ],
     };
   },
   methods:{
@@ -53,7 +81,13 @@ export default {
     },
     getSubCategoriesByCatId(category){
       this.$emit('getSubCategoriesByCatId',category.id)
-      // this.$store.dispatch('SubCategory/getSubCategoriesByCatId',category.id)
+    },
+    showUpdateCategory(category){
+      this.dialog = !this.dialog
+      this.oneCategory = category
+    },
+    changeDialog(){
+      this.dialog = !this.dialog
     }
   }
 }
@@ -63,7 +97,13 @@ export default {
 .header{
   padding: 15px 0px;
 
-}   
+}
+.link-click{
+  cursor: pointer;
+}
+.link-click:hover{
+  color: #5020ffc6;
+}
 .header-title{
     font-family: var(--title-font-family) !important;
     letter-spacing: var(--text-spacing);

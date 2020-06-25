@@ -1,11 +1,16 @@
 <template>
    <v-card>
-       <table-header/>
+       <table-header>
+          <v-btn  to="/block/member" class="submit-btn mt-2 ml-3">
+            <v-icon left>mdi-account-cancel-outline</v-icon>
+            block member
+          </v-btn>
+       </table-header>
         <v-data-table
         :headers="headers"
         @click="seeMember(member)"
         :items="members"
-        :items-per-page="5">
+        :items-per-page="10">
 
         <template v-slot:item.actions="{ item }">
           <v-icon color="yellow darken-2" class="mr-2" @click="editMember(item)">

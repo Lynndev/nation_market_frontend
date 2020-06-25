@@ -9,12 +9,28 @@
         :headers="headers"
         :items="subCategories"
         :items-per-page="5">
+        <template v-slot:item.actions="{ item }">
+          <v-btn @click="showUpdateSubCategory(item)" color="grey darken-1" class="white--text" depressed>
+            <v-icon small >
+              mdi-pencil-outline
+            </v-icon>
+           <v-icon small >
+              mdi-delete-outline
+            </v-icon>
+          </v-btn>
+        </template>
       </v-data-table>
+       <update-sub-category 
+      :dialog="dialog"
+      :subCategory="subCategory"
+      @changeDialog="changeDialog"
+       />
     </v-card>
 </template>
 
 <script>
 
+import UpdateSubCategory from '@/components/category/modal/UpdateSubCategory'
 
 export default {
     props:{
@@ -22,18 +38,31 @@ export default {
             type:Array
         }
     },
+    components:{
+      UpdateSubCategory
+    },
     data() {
       return {
+        dialog:false,
+        subCategory:{},
         headers: [
-          { text: "Name", value: "name",align:'center'},
-          { text: "Myanmar Name", value: "mm_name",align:'center'},
-          { text: "Chinese Name", value: "cn_name",align:'center'},
+          { text: "Name", value: "name",},
+          { text: "Myanmar Name", value: "mm_name",},
+          { text: "Chinese Name", value: "cn_name",},
+          { text: "actions",value:'actions'},
         ],
       };
     },
-    // computed:{
-    //   ...mapState('SubCategory',['subCategories'])
-    // }
+    methods:{
+      showUpdateSubCategory(subCategory){
+        this.dialog = !this.dialog
+        this.subCategory = subCategory
+        console.log(this.subCategory);
+      },
+      changeDialog(){
+        this.dialog = !this.dialog
+      }
+    }
 }
 </script>
 

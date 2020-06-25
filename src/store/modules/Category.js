@@ -28,6 +28,38 @@ const actions = {
             })
        
     },
+    updateCategory({dispatch},payload){
+        Category.updateCategory(payload)
+            .then(() => {
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'Update category Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getCategories')
+                
+            })
+       
+    },
+    deleteCategory({dispatch},catId){
+        Category.deleteCategory(catId)
+            .then((response) => {
+                console.log(response)
+
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'delete category Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getCategories')
+                
+            })
+       
+    },
     getCategories({commit}){
         Category.getCategories()
             .then(categories => {

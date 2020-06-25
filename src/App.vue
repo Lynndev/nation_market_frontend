@@ -195,6 +195,6 @@ label{
 
 /*** it belongs data table and form autocomplete ***/
 .theme--light.v-list {
-    background: rgb(237, 224, 197) !important;
+    background: #f9f9f9 !important;
 }
 </style>

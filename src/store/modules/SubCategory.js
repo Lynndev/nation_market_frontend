@@ -29,6 +29,39 @@ const actions = {
             })
        
     },
+    updateSubCategory({dispatch},payload){
+        SubCategory.updateSubCategory(payload)
+            .then((response) => {
+                console.log(response);
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'Update sub category Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getSubCategories')
+                
+            })
+       
+    },
+    deleteSubCategory({dispatch},subCatId){
+        SubCategory.deleteSubCategory(subCatId)
+            .then((response) => {
+                console.log(response)
+
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'delete sub category Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getSubCategories')
+                
+            })
+       
+    },
     getSubCategories({commit}){
         SubCategory.getSubCategories()
             .then(subCategories => {
