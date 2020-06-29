@@ -58,7 +58,7 @@ export default {
        {route:'/member',name:'Member',icon:'mdi-account-group-outline'},
        {route:'/tnc',name:'Terms&Conditions',icon:'mdi-script-text-outline'},
        {route:'/category',name:'Category',icon:'mdi-clipboard-text-outline'},
-       
+       {route:'/shop',name:'Shop',icon:'mdi-storefront'},
      ]
     }
   },
@@ -70,9 +70,6 @@ export default {
       this.$store.dispatch('User/logout')
     }
   },
-  created(){
-    this.$store.dispatch('User/getAdminData')
-  }
 }
 </script>
 

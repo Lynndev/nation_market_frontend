@@ -3,10 +3,10 @@ import NProgress from 'nprogress'
 
 /*
     for local backend url
-    const offline = 'http://localhost:8000/api/dashboard'
+   const offline = 'http://localhost:8000/api/dashboard'
 
   */
- 
+    
   /*
     for online backend url
     

@@ -12,7 +12,7 @@
                 <v-icon size="150px">mdi-account-circle</v-icon>
               </v-avatar>
                <v-avatar size="150px" v-ripple v-else class="mb-3">
-                <v-img  alt="profile"/>
+                <v-img :src="member.profile"  alt="profile"/>
               </v-avatar>
             </v-row>
            

@@ -20,9 +20,9 @@
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
-              <!-- <div v-if="loginInfoError">
+              <div v-if="loginInfoError">
                 <p class="red--text font-weight-light text-center" >Name and Password must be valid</p>
-              </div> -->
+              </div>
               <form @submit.prevent="login">
               <v-card-text>
                   <label>Name</label>
@@ -59,6 +59,7 @@
 <script>
 
 import {required} from 'vuelidate/lib/validators'
+import {mapState} from 'vuex'
 
 export default {
     data(){
@@ -76,6 +77,7 @@ export default {
       }
     },
     computed:{
+      ...mapState('User',['loginInfoError']),
        nameErrors(){
         const errors = []
         if (!this.$v.name.$dirty) return errors

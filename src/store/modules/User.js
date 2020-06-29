@@ -46,6 +46,8 @@ const actions = {
                     commit('REMOVE_LOGIN_INFO_ERROR')
                     dispatch('Notification/add',notification,{ root: true })
 
+                    dispatch('getAdminData')
+                    
                     router.push('/',()=>{})
                 }
             })
@@ -53,9 +55,9 @@ const actions = {
     },
     logout({commit}){
         User.logout()
-            .then((response) => {
-                console.log(response);
-            localStorage.clear()
+            .then(() => {
+
+            localStorage.removeItem('User')
 
             commit('CHANGE_LOGGED_IN_STATUS')
         
