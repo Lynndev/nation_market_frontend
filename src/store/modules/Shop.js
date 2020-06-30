@@ -15,6 +15,9 @@ const mutations = {
     },
     SET_SHOP(state,shop){
         state.shop = shop
+    },
+    SET_EACH_SHOP(state,shop){
+        state.shop = shop.data.data
     }
 }
 
@@ -45,7 +48,17 @@ const actions = {
     changeStatus({dispatch},payload){
         Shop.changeStatus(payload)
             .then(response => {
+                console.log(response)
 
+                dispatch('getEachShop',{id:payload.id})
+
+            })
+    },
+    getEachShop({commit},payload){
+        Shop.getEachShop(payload)
+            .then((shop) => {
+                console.log(shop);
+                commit('SET_EACH_SHOP',shop)
             })
     },
     getShopByMainCatId({commit},mainCatId){

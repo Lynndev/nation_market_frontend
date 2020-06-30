@@ -16,13 +16,8 @@ export default{
 
         return Server.post_data(url,subCatId)
     },
-    getSubCategories(){
-        const url = 'sub_category/get'
-
-        return Server.get_data(url)
-    },
     getSubCategoriesByCatId(catId){
-        const url = 'sub_category/get'
+        const url = 'sub_category/get?'
 
         const params = {category_id:catId}
 

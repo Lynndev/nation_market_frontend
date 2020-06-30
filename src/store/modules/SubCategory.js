@@ -24,7 +24,7 @@ const actions = {
                 }
                 dispatch('Notification/add',notification,{ root: true })
 
-                dispatch('getSubCategories')
+                dispatch('getSubCategoriesByCatId',payload.category_id)
                 
             })
        
@@ -40,13 +40,13 @@ const actions = {
                 }
                 dispatch('Notification/add',notification,{ root: true })
                 
-                dispatch('getSubCategories')
+                dispatch('getSubCategoriesByCatId',payload.category_id)
                 
             })
        
     },
-    deleteSubCategory({dispatch},subCatId){
-        SubCategory.deleteSubCategory(subCatId)
+    deleteSubCategory({dispatch},payload){
+        SubCategory.deleteSubCategory({id:payload.id})
             .then((response) => {
                 console.log(response)
 
@@ -57,17 +57,10 @@ const actions = {
                 }
                 dispatch('Notification/add',notification,{ root: true })
                 
-                dispatch('getSubCategories')
+                dispatch('getSubCategoriesByCatId',payload.category_id)
                 
             })
        
-    },
-    getSubCategories({commit}){
-        SubCategory.getSubCategories()
-            .then(subCategories => {
-                console.log(subCategories);
-                commit('SET_SUB_CATEGORIES',subCategories)
-            })
     },
     getSubCategoriesByCatId({commit},catId){
         SubCategory.getSubCategoriesByCatId(catId)

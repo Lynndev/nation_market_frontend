@@ -74,9 +74,10 @@ export default {
         this.$emit('changeDialog')
       },
       deleteCategory(){
-        if(this.oneCategory.id){
+        if(this.oneCategory){
           let data = {
-            id:this.oneCategory.id
+            id:this.oneCategory.id,
+            main_category_id:this.oneCategory.main_category_id
           }
           this.$store.dispatch('Category/deleteCategory',data)
 

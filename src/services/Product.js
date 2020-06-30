@@ -7,7 +7,7 @@ export default{
         return Server.get_data(url)
     },
     getProductsByShopId(shopId){
-        const url = 'shops/products/get'
+        const url = 'shops/products/get?'
 
         const params = { shop_id:shopId}
 

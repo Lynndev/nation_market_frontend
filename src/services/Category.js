@@ -21,14 +21,9 @@ export default{
 
         return Server.get_data(url)
     },
-    getCategories(){
-        const url = 'category/get'
-
-        return Server.get_data(url)
-    },
     getCategoriesByMainId(mainId){
         const params = {main_category_id:mainId}
-        const url = 'category/get'
+        const url = 'category/get?'
 
         return Server.get_data(url,params)
     },

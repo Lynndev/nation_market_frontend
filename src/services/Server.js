@@ -73,13 +73,12 @@ export default {
     async get_data(url,params) {
         
         let completeUrl = `${url}`
-
+        
         if(params){
 
             Object.keys(params).forEach((key) => {
-                completeUrl = completeUrl + `?&${key}=${params[key]}`
+                completeUrl =  completeUrl + `&${key}=${params[key]}`
             })
-
         }
         try {
 

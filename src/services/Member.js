@@ -9,14 +9,14 @@ export default{
     updateMember(payload){
         const params = {id:payload.id}
 
-        const url  = 'member/update'
+        const url  = 'member/update?'
 
         return Server.post_data(url,payload,params)
     },
     blockMember(memberId){
         const params = {id:memberId}
 
-        const url  = 'member/block'
+        const url  = 'member/block?'
 
         const payload = null
         return Server.post_data(url,payload,params)
@@ -24,7 +24,7 @@ export default{
     unblockMember(memberId){
         const params = {id:memberId}
 
-        const url  = 'member/unblock'
+        const url  = 'member/unblock?'
 
         const payload = null
         return Server.post_data(url,payload,params)

@@ -8,7 +8,13 @@ export default{
     },
     getShopByMainCatId(mainCatId){
         const params = {main_category_id:mainCatId}
-        const url = 'shops/get'
+        const url = 'shops/get?'
+
+        return Server.get_data(url,params)
+    },
+    getEachShop(payload){
+        const params = {column:Object.keys(payload),value:payload.id}
+        const url = `shops/getEach?`
 
         return Server.get_data(url,params)
     },

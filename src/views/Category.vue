@@ -2,10 +2,16 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="6">
-          <category-store :mainCategories="mainCategories" />
+          <category-store 
+          :mainCategories="mainCategories"
+          @reCheckCategoriesByMainId="reCheckCategoriesByMainId"
+           />
       </v-col>
       <v-col md="6">
-          <sub-category-store :categories="categories" />
+          <sub-category-store 
+          :categories="categories"
+          @reCheckSubCategoriesByCatId="reCheckSubCategoriesByCatId"
+           />
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -51,15 +57,18 @@ export default {
     },
     getSubCategoriesByCatId(catId){
       this.$store.dispatch('SubCategory/getSubCategoriesByCatId',catId)
+    },
+    reCheckCategoriesByMainId(mainId){
+      this.getCategoriesByMainId(mainId)
+    },
+    reCheckSubCategoriesByCatId(catId){
+      this.getSubCategoriesByCatId(catId)
     }
   },
 
   created(){
     this.$store.dispatch('MainCategory/getMainCategories')
     
-    this.$store.dispatch('Category/getCategories')
-
-    this.$store.dispatch('SubCategory/getSubCategories')
   }
 };
 </script>

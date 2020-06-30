@@ -120,8 +120,10 @@ export default {
           mm_name: this.mmName,
           cn_name: this.cnName,
         };
-        this.$store.dispatch("Category/storeCategory", data);
+        this.$store.dispatch("Category/storeCategory", data)
 
+        this.$emit('reCheckCategoriesByMainId',this.mainCategoryId)
+        
         this.name = "";
         this.mmName = "";
         this.cnName = "";

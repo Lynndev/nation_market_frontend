@@ -35,13 +35,26 @@
             <v-row v-if="member.back_nrc">
               <v-col md="12">
                 <p class="text-center">NRC FRONT</p>
-                <v-img src="https://picsum.photos/510/300?random" aspect-ratio="2" contain></v-img>
+                <v-img :src="member.back_nrc" aspect-ratio="2" contain></v-img>
               </v-col>
             </v-row>
-             <v-row v-if="member.back_nrc">
+             <v-row v-if="member.front_nrc">
               <v-col md="12">
                 <p class="text-center">NRC BACK</p>
-                <v-img src="https://picsum.photos/510/300?random" aspect-ratio="2" contain></v-img>
+                <v-img 
+                  :src="member.front_nrc"
+                  aspect-ratio="2" 
+                  contain>
+                   <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
               </v-col>
             </v-row>
             </v-card-text>

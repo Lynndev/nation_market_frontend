@@ -9,6 +9,9 @@ const getters = {
 const mutations = {
     SET_CATEGORIES(state,categories){
         state.categories = categories.data.data
+    },
+    REMOVE_CATEGORY(state,catId){
+        state.categories.filter((value) => value.id == catId)
     }
 }
 
@@ -22,9 +25,6 @@ const actions = {
                      message:'Category create Successfully'
                 }
                 dispatch('Notification/add',notification,{ root: true })
-                
-                dispatch('getCategories')
-                
             })
        
     },
@@ -38,13 +38,13 @@ const actions = {
                 }
                 dispatch('Notification/add',notification,{ root: true })
                 
-                dispatch('getCategories')
+                dispatch('getCategoriesByMainId',payload.main_category_id)
                 
             })
        
     },
-    deleteCategory({dispatch},catId){
-        Category.deleteCategory(catId)
+    deleteCategory({dispatch},payload){
+        Category.deleteCategory({id:payload.id})
             .then((response) => {
                 console.log(response)
 
@@ -55,17 +55,9 @@ const actions = {
                 }
                 dispatch('Notification/add',notification,{ root: true })
                 
-                dispatch('getCategories')
-                
+                dispatch('getCategoriesByMainId',payload.main_category_id)
             })
        
-    },
-    getCategories({commit}){
-        Category.getCategories()
-            .then(categories => {
-                console.log(categories);
-                commit('SET_CATEGORIES',categories)
-            })
     },
     getCategoriesByMainId({commit},mainCategoryId){
         Category.getCategoriesByMainId(mainCategoryId)

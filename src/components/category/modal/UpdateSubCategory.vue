@@ -76,7 +76,8 @@ export default {
       deleteSubCategory(){
         if(this.subCategory.id){
           let data = {
-            id:this.subCategory.id
+            id:this.subCategory.id,
+            category_id:this.subCategory.category_id
           }
           this.$store.dispatch('SubCategory/deleteSubCategory',data)
 

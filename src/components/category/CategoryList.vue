@@ -23,7 +23,7 @@
         :items-per-page="5"
         >
         <template v-slot:item.name="{ item }" >
-          <span class="link-click" @click="getSubCategoriesByCatId(item)">{{item.name}}</span>
+          <span class="link-click" :class="{'link-click-active':activeId == item.id}" @click="getSubCategoriesByCatId(item)">{{item.name}}</span>
         </template>
 
         <template v-slot:item.actions="{ item }">
@@ -67,6 +67,7 @@ export default {
       return {
         dialog:false,
         oneCategory:{},
+        activeId:0,
         headers: [
           { text: "Name", value: "name",},
           { text: "Myanmar Name", value: "mm_name",},
@@ -80,6 +81,7 @@ export default {
       this.$emit('getCategoriesByMainId',id)
     },
     getSubCategoriesByCatId(category){
+      this.activeId = category.id
       this.$emit('getSubCategoriesByCatId',category.id)
     },
     showUpdateCategory(category){
@@ -102,7 +104,10 @@ export default {
   cursor: pointer;
 }
 .link-click:hover{
-  color: #5020ffc6;
+  color: #5020ff;
+}
+.link-click-active{
+  color: #5020ff !important;
 }
 .header-title{
     font-family: var(--title-font-family) !important;

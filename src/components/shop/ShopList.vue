@@ -11,7 +11,7 @@
         <div class="d-flex flex-column">
             <v-card-title class="headline" v-text="shop.name"></v-card-title>
 
-            <v-card-subtitle v-text="shop.description"></v-card-subtitle>
+            <v-card-subtitle v-text="shop.member.name"></v-card-subtitle>
         </div>
       </div>
       <div>

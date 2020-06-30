@@ -6,49 +6,53 @@
         <v-card>
           <v-row>
             <v-col md="8">
-              <div
-                @click="showShopDetail(shop)"
-                class="d-flex flex-column justify-space-between cursor-pointer"
-              >
+              <div class="d-flex flex-column">
                 <div class="d-flex">
-                  <v-avatar class="ma-3" size="125" tile>
+                  <v-avatar class="ma-3" size="135" tile>
                     <v-img v-if="shop.logo" :src="shop.logo"></v-img>
                   </v-avatar>
-                  <div class="d-flex flex-column">
-                    <v-list-item>
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          {{ shop.name }}
-                          <v-btn
-                            class="ml-2"
-                            @click="changeStatus"
-                            small
-                            outlined
-                            :color="btnStatus.color"
-                            >{{ btnStatus.text }}</v-btn
-                          >
-                        </v-list-item-title>
-                        <v-list-item-subtitle>{{
-                          shop.member.name
-                        }}</v-list-item-subtitle>
-                        <v-list-item-subtitle>{{
-                          shop.description
-                        }}</v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
+                  <div class="d-flex flex-column shop-detail">
+                    <div>
+                      <span class="shop-name">{{ shop.name }}</span>
+                      <v-btn
+                        class="ml-2"
+                        @click="changeStatus"
+                        small
+                        outlined
+                        :color="btnStatus.color"
+                        >{{ btnStatus.text }}</v-btn
+                      >
+                    </div>
+                    <div>
+                      <p class="member-name">Name: {{ shop.member.name }}</p>
+                    </div>
+                    <div>
+                      <p v-if="!readMoreActivated" class="description">
+                        {{shop.description.slice(0, 200)}}
+                        <a v-show="shop.description.length >= 200" class="read-more" v-if="!readMoreActivated" @click="activateReadMore" href="#">
+                          read more...
+                        </a>
+                      </p>
+                       <p v-else class="description">
+                         {{shop.description}}
+                        <a class="read-more" v-if="readMoreActivated" @click="activateReadMore" href="#">
+                          show less...
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <v-chip
-                    small
-                    v-for="(category, index) in shop.categories"
-                    :key="index"
-                    class="ma-2"
-                  >
-                    {{ category.name }}
-                  </v-chip>
-                </div>
               </div>
+              <div>
+                    <v-chip
+                      small
+                      v-for="(category, index) in shop.categories"
+                      :key="index"
+                      class="ma-2"
+                    >
+                      {{ category.name }}
+                    </v-chip>
+                  </div>
             </v-col>
             <v-col md="4">
               <v-carousel v-if="shop.images" v-model="model" height="250px">
@@ -56,10 +60,23 @@
                   v-for="(image, i) in shop.images"
                   :key="i"
                   :src="image.image"
+                  :lazy-src="image.image"
                   contain
                   height="100%"
                 >
                 </v-carousel-item>
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey lighten-5"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
               </v-carousel>
             </v-col>
           </v-row>
@@ -84,6 +101,7 @@ export default {
     return {
       model: 0,
       routeName: "shop",
+      readMoreActivated:false
     };
   },
   computed: {
@@ -107,12 +125,19 @@ export default {
         id: this.shop.id,
         status: 0,
       };
+
       if (this.shop.status == 1) {
+        console.log(data);
         data.status = 2;
+        this.$store.dispatch("Shop/changeStatus", data);
       } else {
         data.status = 1;
+        this.$store.dispatch("Shop/changeStatus", data);
       }
     },
+    activateReadMore(){
+      this.readMoreActivated = !this.readMoreActivated
+    }
   },
   components: {
     Toolbar,
@@ -124,4 +149,23 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.shop-name{
+  color: var(--text-color-primary);
+  font-size: 20px;
+  letter-spacing: var(--text-spacing);
+}
+.member-name{
+  letter-spacing: var(--text-spacing);
+  color: var(--text-color-primary);
+}
+.description{
+  color: var(--text-color-primary) !important;
+  line-height: 2;
+}
+.read-more{
+  color: #3AD1F1 !important;
+  text-decoration: none !important;
+}
+</style>

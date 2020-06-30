@@ -117,7 +117,9 @@ export default {
           cn_name: this.cnName,
         };
 
-        this.$store.dispatch("SubCategory/storeSubCategory", data);
+        this.$store.dispatch("SubCategory/storeSubCategory", data)
+
+        this.$emit('reCheckSubCategoriesByCatId',this.categoryId)
 
         this.categoryId = null;
         this.name = "";
