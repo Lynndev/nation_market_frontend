@@ -1,6 +1,13 @@
 <template>
   <v-container fluid>
+     <v-btn 
+     to="/property"
+     class="edit-btn">
+     <v-icon left >mdi-arrow-left-circle-outline</v-icon>
+     Property
+     </v-btn>
     <v-row justify="center">
+     
       <v-col md="6">
           <category-store 
           :mainCategories="mainCategories"
@@ -42,14 +49,15 @@ export default {
   computed:{
     ...mapState('MainCategory',['mainCategories']),
     ...mapState('Category',['categories']),
-    ...mapState('SubCategory',['subCategories'])
+    ...mapState('SubCategory',['subCategories']),
+
   },
   
   components:{
       CategoryStore,
       SubCategoryStore,
       CategoryList,
-      SubCategoryList
+      SubCategoryList,
   },
   methods:{
     getCategoriesByMainId(mainId){
