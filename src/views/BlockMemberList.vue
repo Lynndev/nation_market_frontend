@@ -2,8 +2,20 @@
     <v-container fluid>
          <toolbar :routeName="routeName"/>
         <v-card class="mt-4">
+        <v-card-title class="header">
+        Block members
+        <v-spacer></v-spacer>
+        <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+        ></v-text-field>
+        </v-card-title>
         <v-data-table
         :headers="headers"
+        :search="search"
         :items="blockMembers"
         :items-per-page="5">
 
@@ -25,6 +37,7 @@ import Toolbar from '@/components/includes/Toolbar'
 export default {
     data(){
         return {
+        search:'',
         routeName:'member',
         headers: [
             { text: "Name", value: "name",align:'center'},
@@ -55,3 +68,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.header{
+    font-weight: var(--text-weight);
+    letter-spacing: var(--text-spacing);
+    text-transform: uppercase;
+}
+</style>

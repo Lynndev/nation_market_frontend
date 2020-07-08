@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .header{
-  padding: 15px 0px;
+  padding: 10px 0px;
 }   
 .header-title{
     font-family: var(--title-font-family) !important;
