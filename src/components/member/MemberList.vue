@@ -1,14 +1,30 @@
 <template>
    <v-card>
-       <table-header>
+     <v-row>
+       <v-col md="6">
+        <table-header>
           <v-btn  to="/block/member" class="submit-btn mt-2 ml-3">
             <v-icon left>mdi-account-cancel-outline</v-icon>
             block member
           </v-btn>
        </table-header>
+       </v-col>
+       <v-col md="5">
+          <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+       </v-col>
+     </v-row>
+      
+    
         <v-data-table
         :headers="headers"
         @click="seeMember(member)"
+        :search="search"
         :items="members"
         :items-per-page="10">
 
@@ -40,6 +56,7 @@ export default {
     },
     data() {
     return {
+      search:'',
       headers: [
         { text: "Name", value: "name",align:'center'},
         { text: "Code", value: "code",align:'center'},
@@ -51,3 +68,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.col{
+  padding: 0px 12px !important;
+}
+</style>

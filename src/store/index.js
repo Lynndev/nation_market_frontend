@@ -10,7 +10,7 @@ export default new Vuex.Store({
     modules,
     plugins: [
         createPersistedState({
-          paths:['User','Shop']
+          paths:['User','Shop.shop']
         }),
       ],
 })

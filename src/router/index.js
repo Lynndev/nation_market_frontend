@@ -89,6 +89,24 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/property",
+      name: "Property",
+      component: lazyLoad("Property"),
+      props: true,
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/state-township",
+      name: "stateTownship",
+      component: lazyLoad("StateTownship"),
+      props: true,
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 

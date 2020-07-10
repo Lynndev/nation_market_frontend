@@ -16,22 +16,33 @@
       </ul>
     </header>
 
-    <v-row v-show="mainCategoryId == 2">
-       <v-col  v-for="(product,index) in products" :key="index" md="3">
-        <product-list :product="product" />
-      </v-col>
-    </v-row>
+    
 
-    <v-row  v-show="mainCategoryId != 2">
-      <v-col md="6">
+    <v-row>
+      <v-col v-show="mainCategoryId != 2" md="6">
        <shop-store 
        :categories="categories"
        :mainCategoryId="mainCategoryId" />
       </v-col>
+      <v-col md="6">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    
+    <v-row v-show="mainCategoryId == 2">
+       <v-col  v-for="(product,index) in filterProducts" :key="index" md="3">
+        <product-list :product="product" />
+      </v-col>
     </v-row>
 
     <v-row v-show="mainCategoryId != 2">
-      <v-col  v-for="(shop,index) in shops" :key="index" md="4">
+      <v-col  v-for="(shop,index) in filterShops" :key="index" md="4">
         <shop-list :shop="shop" />
       </v-col>
     </v-row>
@@ -45,16 +56,18 @@ import ShopList from '@/components/shop/ShopList'
 import ShopStore from '@/components/shop/ShopStore'
 import ProductList from '@/components/product/ProductList'
 
+
 export default {
   data() {
     return {
       mainCategoryId: 1,
+      search:''
     };
   },
   components:{
       ShopList,
       ShopStore,
-      ProductList
+      ProductList,
   },
   methods: {
     getShopByMainCatId(mainCategoryId) {
@@ -75,6 +88,16 @@ export default {
     ...mapState('Product',['products']),
     ...mapState('Category',['categories']),
     ...mapGetters("MainCategory", ["sortMainCategories"]),
+    filterShops(){
+      return this.shops.filter((shop) => {
+          return shop.name.toLowerCase().match(this.search)
+      })
+    },
+    filterProducts(){
+      return this.products.filter((product) => {
+          return product.name.toLowerCase().match(this.search)
+      })
+    }
   },
   mounted(){
     this.$store.dispatch('Shop/getShopByMainCatId',this.mainCategoryId)
@@ -121,5 +144,7 @@ export default {
   color: var(--text-color-primary);
   transition: 0.5s;
 }
-
+ .v-text-field{
+        padding-top: 0px !important;
+    }
 </style>
