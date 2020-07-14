@@ -20,6 +20,7 @@
         <v-data-table
         :headers="headers"
         :items="categories"
+        :loading="loading"
         :items-per-page="5"
         >
         <template v-slot:item.name="{ item }" >
@@ -49,6 +50,7 @@
 <script>
 
 import UpdateCategory from '@/components/category/modal/UpdateCategory'
+import {mapState} from 'vuex'
 
 export default {
     props:{
@@ -62,7 +64,9 @@ export default {
     components:{
       UpdateCategory
     },
-
+    computed:{
+      ...mapState('Loading',['loading'])
+    },
     data() {
       return {
         dialog:false,

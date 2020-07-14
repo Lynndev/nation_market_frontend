@@ -8,6 +8,7 @@
         <v-data-table
         :headers="headers"
         :items="subCategories"
+        :loading="loading"
         :items-per-page="5">
         <template v-slot:item.actions="{ item }">
           <v-btn @click="showUpdateSubCategory(item)" color="grey darken-1" class="white--text" depressed>
@@ -31,6 +32,7 @@
 <script>
 
 import UpdateSubCategory from '@/components/category/modal/UpdateSubCategory'
+import {mapState} from 'vuex'
 
 export default {
     props:{
@@ -40,6 +42,9 @@ export default {
     },
     components:{
       UpdateSubCategory
+    },
+    computed:{
+      ...mapState('Loading',['loading'])
     },
     data() {
       return {

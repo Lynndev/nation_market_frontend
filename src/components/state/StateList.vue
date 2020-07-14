@@ -7,6 +7,7 @@
         </div>
         <v-data-table
         :headers="headers"
+        :loading="loading"
         :items="states"
         :items-per-page="15"
         >
@@ -41,6 +42,7 @@
 <script>
 
 import UpdateState from '@/components/state/modal/UpdateState'
+import {mapState} from 'vuex'
 
 export default {
     props:{
@@ -62,6 +64,9 @@ export default {
           { text: "actions",value:'actions'},
         ],
     };
+  },
+  computed:{
+    ...mapState('Loading',['loading'])
   },
   methods:{
     getCategoriesByMainId(id){

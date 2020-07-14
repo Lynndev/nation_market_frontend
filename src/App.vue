@@ -24,6 +24,7 @@ import SnackBar from "@/components/includes/SnackBar";
 import SideNav from "@/components/includes/SideNav.vue";
 import { mapState } from "vuex";
 
+
 export default {
   name: "App",
 
@@ -206,5 +207,12 @@ label {
 /*** it belongs data table and form autocomplete ***/
 .theme--light.v-list {
   background: #f9f9f9 !important;
+}
+
+.loading{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

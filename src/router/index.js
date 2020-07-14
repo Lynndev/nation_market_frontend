@@ -107,6 +107,24 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/package/purchase",
+      name: "packagePurchase",
+      component: lazyLoad("PackagePurchase"),
+      props: true,
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/package",
+      name: "package",
+      component: lazyLoad("Package"),
+      props: true,
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 

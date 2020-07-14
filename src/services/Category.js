@@ -16,11 +16,6 @@ export default{
 
         return Server.post_data(url,catId)
     },
-    getMainCategories(){
-        const url  = '/main_category/get'
-
-        return Server.get_data(url)
-    },
     getCategoriesByMainId(mainId){
         const params = {main_category_id:mainId}
         const url = 'category/get?'

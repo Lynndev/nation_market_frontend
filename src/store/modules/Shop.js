@@ -67,6 +67,13 @@ const actions = {
                 commit('SET_SHOPS',shops)
                 console.log(shops);
             })
+    },
+    getShops({commit}){
+        Shop.getShops()
+            .then(shops => {
+                commit('SET_SHOPS',shops)
+                console.log(shops);
+            })
     }
 
 }

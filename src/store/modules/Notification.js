@@ -1,5 +1,5 @@
 const state = {
-    notifications:[]
+    notifications:[],
 }
 const getters = {
 
@@ -11,7 +11,7 @@ const mutations = {
     },
     DELETE(state){
         state.notifications = []
-    }
+    },
 }
 
 const actions = {
@@ -20,7 +20,7 @@ const actions = {
     },
     remove({commit}){
         commit('DELETE')
-    }
+    },
 }
 
 export default {

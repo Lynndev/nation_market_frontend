@@ -44,7 +44,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn large type="submit" class="submit-btn">
+                <v-btn :loading="loading" large type="submit" class="submit-btn">
                    <v-icon left>mdi-chevron-right-circle-outline</v-icon>
                   Login
                 </v-btn>
@@ -60,6 +60,7 @@
 
 import {required} from 'vuelidate/lib/validators'
 import {mapState} from 'vuex'
+
 
 export default {
     data(){
@@ -78,6 +79,7 @@ export default {
     },
     computed:{
       ...mapState('User',['loginInfoError']),
+      ...mapState('Loading',['loading']),
        nameErrors(){
         const errors = []
         if (!this.$v.name.$dirty) return errors

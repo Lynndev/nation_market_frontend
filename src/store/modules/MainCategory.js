@@ -5,6 +5,7 @@ const state = {
 }
 const getters = {
    sortMainCategories(state){
+       
         const sortMainCats = state.mainCategories.sort((a,b) => {
             const unitA = a.id
             const unitB = b.id
@@ -18,7 +19,30 @@ const getters = {
             return comparison * 1;
             })
         return sortMainCats
-   }
+   },
+   mainCategoriesNMember(state){
+    const member = {
+        id:6,
+        name:'Member',
+    }
+    if(state.mainCategories.length != 0) {
+        state.mainCategories.push(member)
+
+        const sortMainCats = state.mainCategories.sort((a,b) => {
+            const unitA = a.id
+            const unitB = b.id
+
+            let comparison = 0
+            if(unitA > unitB ){
+                comparison = 1
+            }else if(unitB > unitA){
+                comparison = -1
+            }
+            return comparison * 1;
+            })
+        return sortMainCats
+        }
+    }
 }
 const mutations = {
     SET_MAIN_CATEGORIES(state,mainCategories){

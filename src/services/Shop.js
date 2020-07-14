@@ -12,6 +12,11 @@ export default{
 
         return Server.get_data(url,params)
     },
+    getShops(){
+        const url = 'shops/get'
+        
+        return Server.get_data(url)
+    },
     getEachShop(payload){
         const params = {column:Object.keys(payload),value:payload.id}
         const url = `shops/getEach?`

@@ -59,6 +59,7 @@ export default {
        {route:'/category',name:'Category',icon:'mdi-clipboard-text-outline'},
        {route:'/shop',name:'Shop',icon:'mdi-storefront'},
        {route:'/state-township',name:'State & Township',icon:'mdi-office-building'},
+       {route:'/package',name:'Package',icon:'mdi-office-building'},
       {route:'/tnc',name:'Terms&Conditions',icon:'mdi-script-text-outline'},
      ]
     }
