@@ -5,7 +5,11 @@
         <h2 class="header-title">Property Table</h2>
       </div>
     </div>
-    <v-data-table :headers="headers" :items="properties" :items-per-page="5">
+    <v-data-table
+    :loading="loading"
+    :headers="headers" 
+    :items="properties" 
+    :items-per-page="5">
       <template v-slot:item.actions="{ item }">
         <v-btn
           @click="showUpdateProperty(item)"
@@ -32,6 +36,7 @@
 
 <script>
 import UpdateProperty from "@/components/property/modal/UpdateProperty";
+import {mapState} from 'vuex'
 
 export default {
   props: {
@@ -53,6 +58,9 @@ export default {
         { text: "actions", value: "actions" },
       ],
     };
+  },
+  computed:{
+    ...mapState('Loading',['loading'])
   },
   methods: {
     showUpdateProperty(property) {

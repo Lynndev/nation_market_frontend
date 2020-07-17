@@ -29,6 +29,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     shop: {
@@ -42,6 +43,8 @@ export default {
         }
       }
     },
+  },
+  computed:{
   },
   methods: {
     showShopDetail(shop) {

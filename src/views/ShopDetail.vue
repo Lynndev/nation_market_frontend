@@ -96,6 +96,7 @@ import Toolbar from "@/components/includes/Toolbar";
 import { mapState } from "vuex";
 import ProductList from "@/components/product/ProductList";
 
+
 export default {
   data() {
     return {

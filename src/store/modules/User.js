@@ -26,7 +26,6 @@ const mutations = {
 
 const actions = {
     login({commit,dispatch},payload){
-
         User.login(payload)
             .then(user => {
                 if(user.data.success == false){ 
@@ -44,6 +43,7 @@ const actions = {
 
                     commit('CHANGE_LOGGED_IN_STATUS')
                     commit('REMOVE_LOGIN_INFO_ERROR')
+
                     dispatch('Notification/add',notification,{ root: true })
 
                     dispatch('getAdminData')

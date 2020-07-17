@@ -23,6 +23,7 @@
     
         <v-data-table
         :headers="headers"
+        :loading="loading"
         @click="seeMember(member)"
         :search="search"
         :items="members"
@@ -39,6 +40,7 @@
 
 <script>
 import TableHeader from '@/components/includes/TableHeader'
+import {mapState} from 'vuex'
 
 export default {
     props:{
@@ -48,6 +50,9 @@ export default {
     },
     components:{
         TableHeader
+    },
+    computed:{
+      ...mapState('Loading',['loading'])
     },
     methods:{
       editMember(member){

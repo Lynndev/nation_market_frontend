@@ -15,9 +15,6 @@
         </li>
       </ul>
     </header>
-
-    
-
     <v-row>
       <v-col v-show="mainCategoryId != 2" md="6">
        <shop-store 
@@ -34,7 +31,9 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    
+
+ 
+
     <v-row v-show="mainCategoryId == 2">
        <v-col  v-for="(product,index) in filterProducts" :key="index" md="3">
         <product-list :product="product" />
@@ -68,6 +67,7 @@ export default {
       ShopList,
       ShopStore,
       ProductList,
+
   },
   methods: {
     getShopByMainCatId(mainCategoryId) {
@@ -85,6 +85,7 @@ export default {
   },
   computed: {
     ...mapState('Shop',['shops']),
+    ...mapState('Loading',['loading']),
     ...mapState('Product',['products']),
     ...mapState('Category',['categories']),
     ...mapGetters("MainCategory", ["sortMainCategories"]),
