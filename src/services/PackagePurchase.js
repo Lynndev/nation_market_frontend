@@ -27,16 +27,31 @@ export default{
 
         return Server.get_data(url,params)
     },
+    getPurPackagesByShops(){
+        const url = 'package/purchasing/shop'
+
+        return Server.get_data(url)
+    },
     getPurPackagesByMarket(memberId){
         const params = {member_id:memberId}
         const url = 'package/purchasing/market?'
 
         return Server.get_data(url,params)
     },
+    getPurPackagesByMarkets(){
+        const url = 'package/purchasing/market'
+
+        return Server.get_data(url)
+    },
     getPurPackagesByMember(memberId){
         const params = {member_id:memberId}
         const url = 'member/packages/purchasing/get?'
 
         return Server.get_data(url,params)
+    },
+    getPurPackagesByMembers(){
+        const url = 'member/packages/purchasing/get'
+
+        return Server.get_data(url)
     },
 }

@@ -8,11 +8,12 @@
              <v-divider></v-divider>
             <v-card-text>
             <v-row justify="center">
-              <v-avatar v-if="!member.profile" size="150px" v-ripple  class="grey lighten-3 mb-3">
-                <v-icon size="150px">mdi-account-circle</v-icon>
-              </v-avatar>
-               <v-avatar size="150px" v-ripple v-else class="mb-3">
-                <v-img :src="member.profile"  alt="profile"/>
+              <input ref="fileProfile" type="file" style="display:none" @change="onProfileImagePicked">
+              <v-avatar @click="clickprofileImage"  size="150px" v-ripple  class="grey lighten-3 mb-3">
+                <v-img    
+                alt="profile"
+                :src="selectProfileImage"
+                />
               </v-avatar>
             </v-row>
            
@@ -32,29 +33,30 @@
                 clearable
                 dense>
             </v-text-field>            
-            <v-row v-if="member.back_nrc">
+            <v-row >
               <v-col md="12">
                 <p class="text-center">NRC FRONT</p>
-                <v-img :src="member.back_nrc" aspect-ratio="2" contain></v-img>
-              </v-col>
-            </v-row>
-             <v-row v-if="member.front_nrc">
-              <v-col md="12">
-                <p class="text-center">NRC BACK</p>
-                <v-img 
-                  :src="member.front_nrc"
+                <input ref="fileNrcFront" type="file" style="display:none" @change="onNrcFrontPicked">
+                <div @click="clicktNrcFront">
+                  <v-img 
+                  :src="selectNrcFront"
                   aspect-ratio="2" 
                   contain>
-                   <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
+                  </v-img>
+                </div>
+              </v-col>
+            </v-row>
+             <v-row>
+              <v-col  md="12">
+                <p class="text-center">NRC BACK</p>
+                <input ref="fileNrcBack" type="file" style="display:none" @change="onNrcBackPicked">
+                <div @click="clicktNrcBack">
+                  <v-img 
+                  :src="selectNrcBack"
+                  aspect-ratio="2" 
+                  contain>
+                  </v-img>
+                </div>
               </v-col>
             </v-row>
             </v-card-text>
@@ -71,7 +73,6 @@
                 <v-icon small left>mdi-pencil-outline</v-icon>update
               </v-btn>
             </template>
-           
             </v-card-actions>
         </v-card>
         </v-col>
@@ -83,20 +84,28 @@
 
 import {required} from 'vuelidate/lib/validators'
 import Toolbar from '@/components/includes/Toolbar'
+import {MemberImageUpload} from '@/mixins/MemberImageUpload'
+
+const defaultImage = require('../assets/nrc.png')
 
 export default {
+  mixins:[MemberImageUpload],
   props:{
     member:{
       type:Object,
       default:() => {
         return {
           name:null,
-          phone:null
+          phone:null,
+          profileImage:null,
+          nrcFront:null,
+          nrcBack:null
         }
       }
     }
   },
     data: () => ({
+      defaultImage:defaultImage,
       routeName:'member',
     }),
     validations:{
@@ -131,6 +140,7 @@ export default {
         }
         return errors
        },
+      
     },
     methods: {
       storeMember(){
@@ -170,12 +180,15 @@ export default {
 
 
             this.$v.$reset()
-
           }
-      }
+      },
+    
     },
     created(){
       console.log(this.member);
     }
   }
 </script>
+
+<style scoped>
+</style>

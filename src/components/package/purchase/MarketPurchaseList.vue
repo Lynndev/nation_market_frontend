@@ -23,17 +23,32 @@
         :loading="loading"
         :items-per-page="5"
         >
+        <template v-slot:item.payment="{ item }">
+          <v-img
+           @click="showImage(item)"
+           :src="item.payment" 
+           width="50px"
+           height="50px"
+           contain>
+          </v-img>
+        </template>
       </v-data-table>
-
+      <show-image 
+      :dialog="dialog"
+      :purchase="purchase"
+      @changeDialog="changeDialog"
+       />
     </v-card>
 </template>
 
 <script>
 
 import {mapState} from 'vuex'
+import ShowImage from '@/components/package/purchase/modal/ShowImage.vue'
 
 export default {
     components:{
+      ShowImage
     },
     computed:{
       ...mapState('Loading',['loading']),
@@ -42,6 +57,8 @@ export default {
     },
     data() {
       return {
+        purchase:{},
+        dialog:false,
         headers: [
           { text: "Shop Name", value: "member.name",},
           { text: "Package Name", value: "package.name",},
@@ -57,9 +74,18 @@ export default {
     getPurchaseByMemberId(memberId){
       this.$store.dispatch('PackagePurchase/getPurPackagesByMarket',memberId)
     },
+    showImage(purchase){
+      this.dialog = !this.dialog
+      this.purchase = purchase
+    },
+    changeDialog(){
+      this.dialog = !this.dialog
+    }
   },
   created(){
     this.$store.dispatch('Member/getMembers')
+
+    this.$store.dispatch('PackagePurchase/getPurPackagesByMarkets')
   }
 }
 </script>

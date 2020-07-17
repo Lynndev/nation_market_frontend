@@ -70,6 +70,13 @@ const actions = {
                 console.log(purchases);
             })
     },
+    getPurPackagesByShops({commit}){
+        PackagePurchase.getPurPackagesByShops()
+            .then((purchases) => {
+                commit('SET_SHOP_PURCHASES',purchases)
+                console.log(purchases);
+            })
+    },
     getPurPackagesByMarket({commit},memberId){
         PackagePurchase.getPurPackagesByMarket(memberId)
             .then((purchases) => {
@@ -77,8 +84,22 @@ const actions = {
                 console.log(purchases);
             })
     },
+    getPurPackagesByMarkets({commit}){
+        PackagePurchase.getPurPackagesByMarkets()
+            .then((purchases) => {
+                commit('SET_MARKET_PURCHASES',purchases)
+                console.log(purchases);
+            })
+    },
     getPurPackagesByMember({commit},memberId){
         PackagePurchase.getPurPackagesByMember(memberId)
+            .then((purchases) => {
+                commit('SET_MEMBER_PURCHASES',purchases)
+                console.log(purchases);
+            })
+    },
+    getPurPackagesByMembers({commit}){
+        PackagePurchase.getPurPackagesByMembers()
             .then((purchases) => {
                 commit('SET_MEMBER_PURCHASES',purchases)
                 console.log(purchases);
