@@ -1,39 +1,50 @@
 export const MemberImageUpload = {
  data: () => ({
         profile:{},
-        profileImageUrl:null,
-        nrcFrontImageUrl:null,
-        nrcBackImageUrl:null,
         profileImageFile:null,
         nrcFrontImageFile:null,
         nrcBackImageFile:null
     }),
   computed: {
+    nameErrors() {
+      const errors = [];
+      if (!this.$v.member.name.$dirty) return errors;
+
+      if (!this.$v.member.name.required) {
+        errors.push("Name is required");
+      }
+      return errors;
+    },
+    phoneErrors() {
+      const errors = [];
+      if (!this.$v.member.phone.$dirty) return errors;
+
+      if (!this.$v.member.phone.required) {
+        errors.push("Phone is required");
+      }
+      return errors;
+    },
     selectProfileImage() {
-        if (!this.member.profile_image) {
-          if (this.profileImageUrl) {
-            return this.profileImageUrl;
-          }
-        }
-        return this.member.profile_image;
+      if (!this.member.profile) {
+        return this.defaultProfile;
+      }else{
+        return this.member.profile;
+      }
+        
       },
     selectNrcFront() {
       if (!this.member.front_nrc) {
-        if (this.nrcFrontImageUrl) {
-          return this.nrcFrontImageUrl;
-        }
         return this.defaultImage;
+      }else{
+        return this.member.front_nrc;
       }
-      return this.member.front_nrc;
     },
     selectNrcBack() {
       if (!this.member.back_nrc) {
-        if (this.nrcBackImageUrl) {
-          return this.nrcBackImageUrl;
-        }
         return this.defaultImage;
+      }else{
+        return this.member.back_nrc;
       }
-      return this.member.back_nrc;
     },
   },
   methods: {
@@ -45,7 +56,7 @@ export const MemberImageUpload = {
         const fr = new FileReader();
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
-            this.profileImageUrl = fr.result;
+            this.member.profile = fr.result;
             this.profileImageFile = files[0] // this is an image file that can be sent to server...
         });
     },
@@ -57,7 +68,7 @@ export const MemberImageUpload = {
         const fr = new FileReader();
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
-            this.nrcFrontImageUrl = fr.result;
+            this.member.front_nrc = fr.result;
             this.nrcFrontImageFile = files[0] // this is an image file that can be sent to server...
         });
     },
@@ -69,7 +80,7 @@ export const MemberImageUpload = {
         const fr = new FileReader();
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
-            this.nrcBackImageUrl = fr.result;
+            this.member.back_nrc = fr.result;
             this.nrcBackImageFile = files[0] // this is an image file that can be sent to server...
         });
     },

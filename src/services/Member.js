@@ -7,7 +7,8 @@ export default{
         return Server.post_data(url,payload)
     },
     updateMember(payload){
-        const params = {id:payload.id}
+        let memberId = payload.get('id')
+        const params = {id:memberId}
 
         const url  = 'member/update?'
 

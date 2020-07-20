@@ -48,6 +48,20 @@ const actions = {
             })
        
     },
+    updateMemberPackage({dispatch},payload){
+        Package.updateMemberPackage(payload)
+            .then(response => {
+                console.log(response);
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'Update member package Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getMemberPackages')
+            })
+    },
     updatePackage({dispatch},payload){
         Package.updatePackage(payload)
             .then((response) => {
@@ -77,6 +91,22 @@ const actions = {
                 dispatch('Notification/add',notification,{ root: true })
                 
                 dispatch('getPackagesByMainId',payload.main_category_id)
+            })
+       
+    },
+    deleteMemberPackage({dispatch},payload){
+        Package.deleteMemberPackage(payload)
+            .then((response) => {
+                console.log(response)
+
+                const notification = {
+                    type:'success',
+                    status:true,
+                     message:'delete member package Successfully'
+                }
+                dispatch('Notification/add',notification,{ root: true })
+                
+                dispatch('getMemberPackages')
             })
        
     },
