@@ -35,26 +35,6 @@
                 dense
               />
             </v-col>
-            <v-col  md="4">
-              <label>Item Limit</label>
-              <v-text-field
-                v-model="onePackage.item_limit"
-                type="number"
-                outlined
-                clearable
-                dense
-              />
-            </v-col>
-            <v-col  md="4">
-              <label>Image Limit</label>
-              <v-text-field
-                v-model="onePackage.image_limit"
-                type="number"
-                outlined
-                clearable
-                dense
-              />
-            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
@@ -79,8 +59,6 @@ export default {
           return {
             name: "",
             price: null,
-            item_limit: null,
-            image_limit: null,
             duration:null
           }
         }
@@ -101,16 +79,11 @@ export default {
         this.$emit('changeDialog')
       },
       deletePackage(){
-        let data = {
-            id:this.onePackage.id,
-            main_category_id:this.onePackage.main_category_id
-          }
-          this.$store.dispatch('Package/deletePackage',data)
+        
+        this.$store.dispatch('Package/deleteMemberPackage',{id:this.onePackage.id})
           
           this.onePackage.name = ''
           this.onePackage.price = ''
-          this.onePackage.item_limit = ''
-          this.onePackage.image_limit = ''
           this.onePackage.duration = ''
 
           this.changeDialog()
@@ -123,17 +96,12 @@ export default {
           duration:this.onePackage.duration,
           name: this.onePackage.name,
           price: this.onePackage.price,
-          item_limit:this.onePackage.item_limit,
-          image_limit:this.onePackage.image_limit
-        }
-        this.$store.dispatch('Package/updatePackage',data)
-       
-         this.onePackage.name = ''
-          this.onePackage.price = ''
-          this.onePackage.item_limit = ''
-          this.onePackage.image_limit = ''
-          this.onePackage.duration = ''
+        };
+          this.$store.dispatch('Package/updateMemberPackage',data)
 
+        this.onePackage.name = ''
+        this.onePackage.price = ''
+        this.onePackage.duration = ''
 
         this.changeDialog()
       }

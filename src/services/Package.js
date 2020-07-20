@@ -16,10 +16,20 @@ export default{
 
         return Server.post_data(url,payload)
     },
-    deletePackage(packageId){
+    updateMemberPackage(payload){
+        const url = 'member/packages/update'
+
+        return Server.post_data(url,payload)
+    },
+    deletePackage(payload){
         const url = '/package/delete'
 
-        return Server.post_data(url,packageId)
+        return Server.post_data(url,payload)
+    },
+    deleteMemberPackage(payload){
+        const url = '/member/packages/delete'
+
+        return Server.post_data(url,payload)
     },
     getPackagesByMainId(mainId){
         const params = {main_category_id:mainId}

@@ -19,10 +19,9 @@ const mutations = {
 
 const actions = {
     storeMember({dispatch},payload){
-
         Member.storeMember(payload)
-            .then(() => {
-
+            .then((response) => {
+                console.log(response);
                 const notification = {
                     type:'success',
                     status:true,
@@ -38,10 +37,9 @@ const actions = {
        
     },
     updateMember({dispatch},payload){
-
         Member.updateMember(payload)
-            .then(() => {
-
+            .then((response) => {
+                console.log(response);
                 const notification = {
                     type:'success',
                     status:true,

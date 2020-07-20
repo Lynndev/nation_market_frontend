@@ -22,7 +22,7 @@
         </template>
       </v-data-table>
 
-      <update-package 
+      <update-member-package 
       :dialog="dialog"
       :onePackage="onePackage"
       @changeDialog="changeDialog"
@@ -32,7 +32,7 @@
 
 <script>
 
-import UpdatePackage from '@/components/package/modal/UpdatePackage'
+import UpdateMemberPackage from '@/components/package/modal/UpdateMemberPackage'
 import {mapState} from 'vuex'
 
 export default {
@@ -42,7 +42,7 @@ export default {
         },
     },
     components:{
-      UpdatePackage
+      UpdateMemberPackage
     },
     computed:{
       ...mapState('Loading',['loading'])
