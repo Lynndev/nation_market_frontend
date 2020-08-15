@@ -2,98 +2,103 @@
   <v-container fluid>
     <toolbar :routeName="routeName" />
     <v-row justify="center">
-      <v-col md="6">
+      <v-col md="12">
         <v-card>
           <h2 class="form-title pa-3">Member Store</h2>
           <v-divider></v-divider>
           <v-card-text>
-            <v-row justify="center">
-              <input
-                ref="fileProfile"
-                type="file"
-                style="display:none"
-                @change="onProfileImagePicked"
-              />
-              <v-avatar
-                @click="clickprofileImage"
-                size="150px"
-                v-ripple
-                class="grey lighten-3 mb-3"
-              >
-                <v-img alt="profile" :src="selectProfileImage" />
-              </v-avatar>
-            </v-row>
-
-            <label>Name</label>
-            <v-text-field
-              v-model="member.name"
-              :error-messages="nameErrors"
-              outlined
-              clearable
-              dense
-            >
-            </v-text-field>
-            <label>Phone</label>
-            <v-text-field
-              v-model="member.phone"
-              :error-messages="phoneErrors"
-              outlined
-              clearable
-              dense
-            >
-            </v-text-field>
-
-            <v-select
-              :items="states"
-              class="mb-4"
-              item-text="name"
-              item-value="id"
-              hide-details
-              label="choose state"
-              @change="getTownshipByState"
-              return-object
-              solo
-            >
-            </v-select>
-
-            <v-select
-              v-show="showTownship"
-              :items="townships"
-              v-model="member.township_id"
-              item-text="name"
-              item-value="id"
-              hide-details
-              label="choose Township"
-              solo
-            >
-            </v-select>
             <v-row>
-              <v-col md="12">
-                <p class="text-center">NRC FRONT</p>
-                <input
-                  ref="fileNrcFront"
-                  type="file"
-                  style="display:none"
-                  @change="onNrcFrontPicked"
-                />
-                <div @click="clicktNrcFront">
-                  <v-img :src="selectNrcFront" aspect-ratio="2" contain>
-                  </v-img>
-                </div>
+              <v-col md="5">
+                <v-row justify="center">
+                  <input
+                    ref="fileProfile"
+                    type="file"
+                    style="display:none"
+                    @change="onProfileImagePicked"
+                  />
+                  <v-avatar
+                    @click="clickprofileImage"
+                    size="150px"
+                    v-ripple
+                    class="grey center lighten-3 mb-3"
+                  >
+                    <v-img alt="profile" :src="selectProfileImage" />
+                  </v-avatar>
+                </v-row>
+
+                <label>Name</label>
+                <v-text-field
+                  v-model="member.name"
+                  :error-messages="nameErrors"
+                  outlined
+                  clearable
+                  dense
+                >
+                </v-text-field>
+                <label>Phone</label>
+                <v-text-field
+                  v-model="member.phone"
+                  :error-messages="phoneErrors"
+                  outlined
+                  clearable
+                  dense
+                >
+                </v-text-field>
+
+                <v-select
+                  :items="states"
+                  class="mb-4"
+                  item-text="name"
+                  item-value="id"
+                  hide-details
+                  label="choose state"
+                  @change="getTownshipByState"
+                  return-object
+                  solo
+                >
+                </v-select>
+
+                <v-select
+                  v-show="showTownship"
+                  :items="townships"
+                  v-model="member.township_id"
+                  item-text="name"
+                  item-value="id"
+                  hide-details
+                  label="choose Township"
+                  solo
+                >
+                </v-select>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col md="12">
-                <p class="text-center">NRC BACK</p>
-                <input
-                  ref="fileNrcBack"
-                  type="file"
-                  style="display:none"
-                  @change="onNrcBackPicked"
-                />
-                <div @click="clicktNrcBack">
-                  <v-img :src="selectNrcBack" aspect-ratio="2" contain> </v-img>
-                </div>
+              <v-col md="7">
+                <v-row>
+                  <v-col md="6">
+                    <p class="text-center">NRC FRONT</p>
+                    <input
+                      ref="fileNrcFront"
+                      type="file"
+                      style="display:none"
+                      @change="onNrcFrontPicked"
+                    />
+                    <div @click="clicktNrcFront">
+                      <v-img :src="selectNrcFront" aspect-ratio="1.5" contain>
+                      </v-img>
+                    </div>
+                  </v-col>
+                  <v-col md="6">
+                    <p class="text-center">NRC BACK</p>
+                    <input
+                      ref="fileNrcBack"
+                      type="file"
+                      style="display:none"
+                      @change="onNrcBackPicked"
+                    />
+                    <div @click="clicktNrcBack">
+                      <v-img :src="selectNrcBack" aspect-ratio="1.5" contain>
+                      </v-img>
+                    </div>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
           </v-card-text>
@@ -130,7 +135,7 @@ import { MemberImageUpload } from "@/mixins/MemberImageUpload";
 import { mapState } from "vuex";
 
 const defaultImage = require("../assets/nrc.png");
-const defaultProfile = require("../assets/profile.png")
+const defaultProfile = require("../assets/profile.png");
 
 export default {
   mixins: [MemberImageUpload],
@@ -144,16 +149,16 @@ export default {
           profile: null,
           front_nrc: null,
           back_nrc: null,
-          township_id:null
+          township_id: null,
         };
       },
     },
   },
   data: () => ({
     defaultImage: defaultImage,
-    defaultProfile:defaultProfile,
-    townshipId:null,
-    showTownship:false,
+    defaultProfile: defaultProfile,
+    townshipId: null,
+    showTownship: false,
     routeName: "member",
   }),
   validations: {
@@ -177,17 +182,16 @@ export default {
     storeMember() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        let fd = new FormData();
+        fd.append("id", this.member.id);
+        fd.append("name", this.member.name);
+        fd.append("phone", this.member.phone);
+        fd.append("profile", this.profileImageFile);
+        fd.append("back_nrc", this.nrcBackImageFile);
+        fd.append("front_nrc", this.nrcFrontImageFile);
+        fd.append("township_id", this.member.township_id);
 
-        let fd = new FormData()
-        fd.append('id',this.member.id)
-        fd.append('name',this.member.name)
-        fd.append('phone',this.member.phone)
-        fd.append('profile',this.profileImageFile,)
-        fd.append('back_nrc',this.nrcBackImageFile)
-        fd.append('front_nrc',this.nrcFrontImageFile)
-        fd.append('township_id',this.member.township_id)
-
-        this.$store.dispatch("Member/storeMember", fd)
+        this.$store.dispatch("Member/storeMember", fd);
 
         this.member.name = "";
         this.member.phone = "";
@@ -195,10 +199,10 @@ export default {
         this.$v.$reset();
       }
     },
-    getTownshipByState(state){
+    getTownshipByState(state) {
       console.log(state.id);
-      this.showTownship = true
-      this.$store.dispatch('Township/getTownshipByStateId',state.id)
+      this.showTownship = true;
+      this.$store.dispatch("Township/getTownshipByStateId", state.id);
     },
     blockMember() {
       if (this.member.id) {
@@ -208,17 +212,17 @@ export default {
     updateMember() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-       
-        let fd = new FormData()
-        fd.append('id',this.member.id)
-        fd.append('name',this.member.name)
-        fd.append('phone',this.member.phone)
-        if(this.profileImageFile) fd.append('profile',this.profileImageFile,)
-        if(this.nrcBackImageFile) fd.append('back_nrc',this.nrcBackImageFile,)
-        if(this.nrcFrontImageFile) fd.append('front_nrc',this.nrcFrontImageFile,)
-        fd.append('township_id',this.member.township_id)
+        let fd = new FormData();
+        fd.append("id", this.member.id);
+        fd.append("name", this.member.name);
+        fd.append("phone", this.member.phone);
+        if (this.profileImageFile) fd.append("profile", this.profileImageFile);
+        if (this.nrcBackImageFile) fd.append("back_nrc", this.nrcBackImageFile);
+        if (this.nrcFrontImageFile)
+          fd.append("front_nrc", this.nrcFrontImageFile);
+        fd.append("township_id", this.member.township_id);
 
-        this.$store.dispatch("Member/updateMember",fd)
+        this.$store.dispatch("Member/updateMember", fd);
 
         this.member.name = "";
         this.member.phone = "";
