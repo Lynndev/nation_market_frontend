@@ -125,6 +125,22 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/setting",
+      name: "setting",
+      component: lazyLoad("Setting"),
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/payment-method",
+      name: "payment-method",
+      component: lazyLoad("PaymentMethod"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 
