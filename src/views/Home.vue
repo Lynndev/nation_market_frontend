@@ -1,17 +1,11 @@
 <template>
-      <v-container
-        fluid
-      >
-        <h2>hello world</h2>
-      </v-container>
-
+  <v-container fluid>
+    <h2>hello world</h2>
+  </v-container>
 </template>
 
 <script>
-
-
 export default {
-  components:{
-  },
-}
+  components: {},
+};
 </script>

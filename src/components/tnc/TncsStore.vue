@@ -1,43 +1,77 @@
 <template>
-    <v-container fluid>
+  <v-container fluid>
+    <froala
+      :tag="'textarea'"
+      :config="config"
+      v-model="tncs.description"
+    ></froala>
     <v-row>
-        <froala :tag="'textarea'" :config="config" v-model="tncs.description"></froala>
-    </v-row>
-    <v-row justify="center">
-        <v-btn type="submit" @click="updateTnc" block class="edit-btn mt-4">
-            <v-icon  class="mt-2" left>mdi-border-color</v-icon>
-            Update
+      <v-spacer />
+      <v-col md="6">
+        <v-btn type="submit" @click="updateTnc" block class="edit-btn">
+          <v-icon left>mdi-border-color</v-icon>
+          Update
         </v-btn>
+      </v-col>
     </v-row>
-    </v-container>
+  </v-container>
 </template>
 
 <script>
-
 export default {
-    props:{
-        tncs:{
-            type:Object
-        }
+  props: {
+    tncs: {
+      type: Object,
     },
-    data () {
+  },
+  data() {
     return {
       config: {
         toolbarButtons: {
-          'moreText': {
-            'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
+          moreText: {
+            buttons: [
+              "bold",
+              "italic",
+              "underline",
+              "strikeThrough",
+              "subscript",
+              "superscript",
+              "fontFamily",
+              "fontSize",
+              "textColor",
+              "backgroundColor",
+              "inlineClass",
+              "inlineStyle",
+              "clearFormatting",
+            ],
           },
-          'moreParagraph': {
-            'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
+          moreParagraph: {
+            buttons: [
+              "alignLeft",
+              "alignCenter",
+              "formatOLSimple",
+              "alignRight",
+              "alignJustify",
+              "formatOL",
+              "formatUL",
+              "paragraphFormat",
+              "paragraphStyle",
+              "lineHeight",
+              "outdent",
+              "indent",
+              "quote",
+            ],
           },
         },
       },
-    }
+    };
   },
-  methods:{
-      updateTnc(){
-          this.$store.dispatch('Tnc/updateTnc',{description:this.tncs.description})
-      }
-  }
-}
+  methods: {
+    updateTnc() {
+      this.$store.dispatch("Tnc/updateTnc", {
+        description: this.tncs.description,
+      });
+    },
+  },
+};
 </script>

@@ -1,17 +1,29 @@
 <template>
   <v-card>
+    <div class="d-flex align-baseline flex-row header">
+      <div>
+        <h2 class="header-title">Payment Method Table</h2>
+      </div>
+    </div>
     <v-data-table
       :headers="headers"
-      :items="packages"
       :loading="loading"
+      :items="paymentMethods"
       :items-per-page="5"
     >
-      <template v-slot:item.price="{ item }">
-        {{ item.price | separateNum }}
+      <template v-slot:item.image="{ item }">
+        <v-img
+          @click="showImage(item)"
+          :src="item.image"
+          width="100px"
+          height="100px"
+          contain
+        >
+        </v-img>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn
-          @click="showUpdatePackage(item)"
+          @click="setPaymentMethod(item)"
           color="grey darken-1"
           class="white--text"
           depressed
@@ -26,55 +38,50 @@
       </template>
     </v-data-table>
 
-    <update-package
+    <update-payment-method
       :dialog="dialog"
-      :onePackage="onePackage"
+      :paymentMethod="paymentMethod"
       @changeDialog="changeDialog"
     />
   </v-card>
 </template>
 
 <script>
-import UpdatePackage from "@/components/package/modal/UpdatePackage";
 import { mapState } from "vuex";
+import UpdatePaymentMethod from "@/components/payment-method/modal/UpdatePaymentMethod";
 
 export default {
   props: {
-    packages: {
+    paymentMethods: {
       type: Array,
     },
-  },
-  components: {
-    UpdatePackage,
   },
   computed: {
     ...mapState("Loading", ["loading"]),
   },
+  components: {
+    UpdatePaymentMethod,
+  },
   data() {
     return {
       dialog: false,
-      onePackage: {},
+      paymentMethod: {},
       headers: [
-        { text: "Name", value: "name" },
-        { text: "Price", value: "price" },
-        { text: "Item Limit", value: "item_limit" },
-        { text: "Image Limit", value: "image_limit" },
-        { text: "Duration", value: "duration" },
-        { text: "actions", value: "actions" },
+        { text: "Payment", value: "name" },
+        { text: "Payment Image", value: "image" },
+        { text: "Action", value: "actions" },
       ],
     };
   },
   methods: {
-    showUpdatePackage(onePackage) {
+    setPaymentMethod(paymentMethod) {
       this.dialog = !this.dialog;
-      this.onePackage = onePackage;
+      this.paymentMethod = paymentMethod;
+      console.log(this.paymentMethod);
     },
     changeDialog() {
       this.dialog = !this.dialog;
     },
-  },
-  created() {
-    console.log(this.packages);
   },
 };
 </script>
@@ -82,15 +89,6 @@ export default {
 <style scoped>
 .header {
   padding: 15px 0px;
-}
-.link-click {
-  cursor: pointer;
-}
-.link-click:hover {
-  color: #5020ff;
-}
-.link-click-active {
-  color: #5020ff !important;
 }
 .header-title {
   font-family: var(--title-font-family) !important;

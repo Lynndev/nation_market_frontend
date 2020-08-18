@@ -216,6 +216,7 @@ export default {
         fd.append("id", this.member.id);
         fd.append("name", this.member.name);
         fd.append("phone", this.member.phone);
+
         if (this.profileImageFile) fd.append("profile", this.profileImageFile);
         if (this.nrcBackImageFile) fd.append("back_nrc", this.nrcBackImageFile);
         if (this.nrcFrontImageFile)
