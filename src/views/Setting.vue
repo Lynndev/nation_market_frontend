@@ -25,6 +25,11 @@ export default {
           name: "Payment Method",
           icon: "mdi-credit-card-outline",
         },
+        {
+          route: "/currency",
+          name: "Currency",
+          icon: "mdi-currency-usd-circle-outline",
+        },
       ],
     };
   },

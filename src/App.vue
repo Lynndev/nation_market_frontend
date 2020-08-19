@@ -23,8 +23,6 @@
 import SnackBar from "@/components/includes/SnackBar";
 import SideNav from "@/components/includes/SideNav.vue";
 import { mapState } from "vuex";
-
-
 export default {
   name: "App",
 
@@ -34,6 +32,7 @@ export default {
   },
   computed: {
     ...mapState("User", ["isLoggedIn"]),
+    ...mapState("Loading", ["loading"]),
   },
   data: () => ({
     drawer: true,
@@ -209,7 +208,7 @@ label {
   background: #f9f9f9 !important;
 }
 
-.loading{
+.loading {
   height: 100%;
   display: flex;
   justify-content: center;
