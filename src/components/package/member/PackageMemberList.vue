@@ -9,6 +9,7 @@
       <template v-slot:item.price="{ item }">
         {{ item.price | separateNum }}
       </template>
+      
       <template v-slot:item.actions="{ item }">
         <v-btn
           @click="showUpdatePackage(item)"

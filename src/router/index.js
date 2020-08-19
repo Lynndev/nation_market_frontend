@@ -141,6 +141,14 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/currency",
+      name: "currency",
+      component: lazyLoad("Currency"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 
