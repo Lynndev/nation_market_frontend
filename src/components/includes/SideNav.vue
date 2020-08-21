@@ -73,6 +73,11 @@ export default {
           name: "Setting",
           icon: "mdi-cog-outline",
         },
+        {
+          route: "/chat",
+          name: "Chat Box",
+          icon: "mdi-chat-processing-outline",
+        },
       ],
     };
   },

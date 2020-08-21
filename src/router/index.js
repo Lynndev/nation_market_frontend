@@ -149,6 +149,14 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/chat",
+      name: "chat",
+      component: lazyLoad("Chat"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 
