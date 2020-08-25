@@ -6,12 +6,12 @@
     >
       <div class="d-flex">
         <v-avatar class="ma-3" size="125" tile>
-            <v-img v-if="shop.logo" :src="shop.logo"></v-img>
+          <v-img v-if="shop.logo" :src="shop.logo"></v-img>
         </v-avatar>
         <div class="d-flex flex-column">
-            <v-card-title class="headline" v-text="shop.name"></v-card-title>
+          <v-card-title class="headline" v-text="shop.name"></v-card-title>
 
-            <v-card-subtitle v-text="shop.member.name"></v-card-subtitle>
+          <v-card-subtitle v-text="shop.member.name"></v-card-subtitle>
         </div>
       </div>
       <div>
@@ -29,26 +29,29 @@
 </template>
 
 <script>
-
 export default {
   props: {
     shop: {
       type: Object,
-      default:() => {
-        return{
-          name:'',
-          logo:'',
-          description:'',
-          category:'',
-        }
-      }
+      default: () => {
+        return {
+          name: "",
+          logo: "",
+          description: "",
+          category: "",
+        };
+      },
     },
   },
-  computed:{
-  },
+  computed: {},
   methods: {
     showShopDetail(shop) {
-      this.$store.dispatch('Shop/getShopDetail',shop)
+      this.$router.push({
+        name: "ShopDetail",
+        params: {
+          shopId: shop.id,
+        },
+      });
     },
   },
 };

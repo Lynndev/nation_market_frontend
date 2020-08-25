@@ -9,7 +9,7 @@
       >
         <v-responsive class="overflow-y-auto fill-height" height="670">
           <v-list subheader>
-            <v-list-item-group v-model="activeChat">
+            <v-list-item-group>
               <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
@@ -22,8 +22,12 @@
                 dense
               ></v-text-field>
               <template v-for="(item, index) in filterMembers">
-                <v-list-item :key="`parent${index}`" :value="item.id">
-                  <v-list-item-avatar color="grey lighten-1 white--text">
+                <v-list-item
+                  @click="getMemberMessages(item.id)"
+                  :key="`parent${index}`"
+                  :value="item.id"
+                >
+                  <v-list-item-avatar>
                     <v-img v-if="item.profile" :src="item.profile"></v-img>
                     <v-img v-else :src="defaultProfile"></v-img>
                   </v-list-item-avatar>
@@ -39,43 +43,67 @@
       </v-col>
       <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
         <v-responsive
-          v-if="activeChat"
+          v-if="newMessages.length > 0"
           class="overflow-y-hidden fill-height"
           height="670"
         >
           <v-card class="d-flex flex-column fill-height">
-            <v-card-title>
-              john doe
-            </v-card-title>
-            <v-card-text class="flex-grow-1 overflow-y-auto">
-              <template v-for="(msg, i) in messages">
-                <div :key="i" :class="{ 'd-flex flex-row-reverse': msg.me }">
+            <v-card-text
+              v-chat-scroll="{ smooth: true }"
+              class="flex-grow-1 overflow-y-auto"
+            >
+              <template v-for="(msg, i) in newMessages">
+                <div
+                  :key="i"
+                  :class="{ 'd-flex flex-row-reverse': msg.status == 2 }"
+                >
                   <v-chip
-                    :color="msg.me ? 'primary' : ''"
+                    v-if="msg.body.type == 1"
+                    :color="msg.status == 2 ? 'primary' : ''"
                     dark
                     style="height:auto;white-space: normal;"
-                    class="pa-2 mb-2"
+                    class="pa-2 mb-2 message"
                   >
-                    {{ msg.content }}
+                    {{ msg.body.text }}
                   </v-chip>
-                  <sub class="ml-2" style="font-size: 0.5rem;">{{
-                    msg.created_at
-                  }}</sub>
+                  <!-- if message is image  -->
+                  <v-chip
+                    v-else
+                    :color="
+                      msg.status == 2 || msg.body.type == 2 ? 'primary' : ''
+                    "
+                    dark
+                    style="height:auto;white-space: normal;"
+                    class="pa-2 mb-2 message"
+                  >
+                    <v-img alt="profile" :src="msg.image" />
+                  </v-chip>
+                  <sub class="ml-2" style="font-size: 0.5rem;">
+                    {{ msg.created_at | formatDateTime }}
+                  </sub>
                 </div>
               </template>
             </v-card-text>
             <v-card-text class="flex-shrink-1">
               <v-text-field
-                v-model="messageForm.content"
+                v-model="adminMessage"
                 label="type here..."
                 type="text"
                 no-details
                 outlined
                 dense
                 append-outer-icon="send"
-                @keyup.enter="messages.push(messageForm)"
-                @click:append-outer="messages.push(messageForm)"
+                append-icon="image"
+                @keyup.enter="sendMessageFromAdmin"
+                @click:append-outer="sendMessageFromAdmin"
+                @click:append="handleRefImage"
                 hide-details
+              />
+              <input
+                ref="image"
+                type="file"
+                style="display:none"
+                @change="sendImageFromAdmin"
               />
             </v-card-text>
           </v-card>
@@ -90,80 +118,66 @@ import { mapState } from "vuex";
 const defaultProfile = require("../assets/profile.png");
 
 export default {
+  components: {},
   data() {
     return {
       defaultProfile: defaultProfile,
+      memberId: null,
       search: "",
-      activeChat: 1,
-      messageForm: {
-        content: "",
-        me: true,
-        created_at: "11:11am",
-      },
-      messages: [
-        {
-          content: "lorem ipsum",
-          me: true,
-          created_at: "11:11am",
-        },
-        {
-          content: "lorem ipsum",
-          me: true,
-          created_at: "11:11am",
-        },
-        {
-          content: "lorem ipsum",
-          me: true,
-          created_at: "11:11am",
-        },
-        {
-          content: "lorem ipsum",
-          me: true,
-          created_at: "11:11am",
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:11am",
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:11am",
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:11am",
-        },
-        {
-          content: "dolor",
-          me: true,
-          created_at: "11:11am",
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:12am",
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:14am",
-        },
-      ],
+      newMessages: [],
+      adminMessage: "",
     };
+  },
+  methods: {
+    getMemberMessages(id) {
+      this.memberId = id;
+      this.$store.dispatch("Member/getMemberMessages", id).then(() => {
+        if (this.messages.length > 0) {
+          this.newMessages = this.messages.map((message) => {
+            let body = JSON.parse(message.body);
+            message.body = body;
+            return message;
+          });
+        }
+      });
+    },
+    handleRefImage() {
+      this.$refs.image.click();
+    },
+    sendImageFromAdmin(e) {
+      const files = e.target.files;
+      let body = {};
+      body.type = 2;
+
+      let formData = new FormData();
+      formData.append("member_id", this.memberId);
+      formData.append("body", body);
+      formData.append("image", files[0]);
+
+      this.$store.dispatch("Member/sendMessageFromAdmin", formData);
+    },
+    sendMessageFromAdmin() {
+      let messageForm = {
+        member_id: this.memberId,
+        body: { type: 1, text: this.adminMessage },
+      };
+      console.log(messageForm);
+      this.$store.dispatch("Member/sendMessageFromAdmin", messageForm);
+    },
   },
   computed: {
     ...mapState("Member", ["members"]),
+    ...mapState("Member", ["messages"]),
+    ...mapState("Loading", ["loading"]),
     filterMembers() {
       return this.members.filter((member) => {
         return member.name.toLowerCase().match(this.search);
       });
     },
   },
+  watch: {},
   created() {
-    this.$store.dispatch("Member/getMembers");
+    this.$store.dispatch("Member/getChatMembers");
   },
 };
 </script>
@@ -179,5 +193,8 @@ export default {
 .member-list {
   overflow-y: scroll;
   height: 77vh;
+}
+.message {
+  max-width: 330px !important;
 }
 </style>

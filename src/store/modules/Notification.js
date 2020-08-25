@@ -1,32 +1,30 @@
 const state = {
-    notifications:[],
-}
-const getters = {
-
-}
+  notifications: [],
+};
+const getters = {};
 
 const mutations = {
-    PUSH(state,notification){
-        state.notifications = notification
-    },
-    DELETE(state){
-        state.notifications = []
-    },
-}
+  PUSH(state, notification) {
+    state.notifications = notification;
+  },
+  DELETE(state) {
+    state.notifications = [];
+  },
+};
 
 const actions = {
-    add({commit},notification){
-        commit('PUSH',notification)
-    },
-    remove({commit}){
-        commit('DELETE')
-    },
-}
+  add({ commit }, notification) {
+    commit("PUSH", notification);
+  },
+  remove({ commit }) {
+    commit("DELETE");
+  },
+};
 
 export default {
-    namespaced:true,
-    state,
-    getters,
-    mutations,
-    actions
-}
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+};

@@ -1,43 +1,59 @@
-import Server from './Server'
+import Server from "./Server";
 
-export default{
-    storeMember(payload){
-        const url  = 'member/store'
+export default {
+  storeMember(payload) {
+    const url = "member/store";
 
-        return Server.post_data(url,payload)
-    },
-    updateMember(payload){
-        let memberId = payload.get('id')
-        const params = {id:memberId}
+    return Server.post_data(url, payload);
+  },
+  updateMember(payload) {
+    let memberId = payload.get("id");
+    const params = { id: memberId };
 
-        const url  = 'member/update?'
+    const url = "member/update?";
 
-        return Server.post_data(url,payload,params)
-    },
-    blockMember(memberId){
-        const params = {id:memberId}
+    return Server.post_data(url, payload, params);
+  },
+  blockMember(memberId) {
+    const params = { id: memberId };
 
-        const url  = 'member/block?'
+    const url = "member/block?";
 
-        const payload = null
-        return Server.post_data(url,payload,params)
-    },
-    unblockMember(memberId){
-        const params = {id:memberId}
+    const payload = null;
+    return Server.post_data(url, payload, params);
+  },
+  unblockMember(memberId) {
+    const params = { id: memberId };
 
-        const url  = 'member/unblock?'
+    const url = "member/unblock?";
 
-        const payload = null
-        return Server.post_data(url,payload,params)
-    },
-    getBlockMembers(){
-        const url = 'member/block'
+    const payload = null;
+    return Server.post_data(url, payload, params);
+  },
+  getBlockMembers() {
+    const url = "member/block";
 
-        return Server.get_data(url)
-    },
-    getMembers(){
-        const url = 'member/get'
+    return Server.get_data(url);
+  },
+  getMembers() {
+    const url = "member/get";
 
-        return Server.get_data(url)
-    }
-}
+    return Server.get_data(url);
+  },
+  getChatMembers() {
+    const url = "chat/getMember";
+
+    return Server.get_data(url);
+  },
+  sendMessageFromAdmin(payload) {
+    const url = "chat";
+
+    return Server.post_data(url, payload);
+  },
+  getMemberMessages(id) {
+    const url = "chat/get?";
+    let params = { member_id: id };
+
+    return Server.get_data(url, params);
+  },
+};

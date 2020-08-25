@@ -81,10 +81,9 @@ const router = new Router({
       },
     },
     {
-      path: "/shop/detail",
+      path: "/shop/detail/:shopId",
       name: "ShopDetail",
       component: lazyLoad("ShopDetail"),
-      props: true,
       meta: {
         forAuth: true,
       },
