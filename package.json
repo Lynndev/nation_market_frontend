@@ -12,6 +12,7 @@
     "moment": "^2.26.0",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
+    "vue-chat-scroll": "^1.4.0",
     "vue-froala-wysiwyg": "^3.1.1-1",
     "vue-router": "^3.1.6",
     "vuelidate": "^0.7.5",

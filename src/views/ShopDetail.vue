@@ -28,14 +28,25 @@
                     </div>
                     <div>
                       <p v-if="!readMoreActivated" class="description">
-                        {{shop.description.slice(0, 200)}}
-                        <a v-show="shop.description.length >= 200" class="read-more" v-if="!readMoreActivated" @click="activateReadMore" href="#">
+                        {{ shop.description.slice(0, 200) }}
+                        <a
+                          v-show="shop.description.length >= 200"
+                          class="read-more"
+                          v-if="!readMoreActivated"
+                          @click="activateReadMore"
+                          href="#"
+                        >
                           read more...
                         </a>
                       </p>
-                       <p v-else class="description">
-                         {{shop.description}}
-                        <a class="read-more" v-if="readMoreActivated" @click="activateReadMore" href="#">
+                      <p v-else class="description">
+                        {{ shop.description }}
+                        <a
+                          class="read-more"
+                          v-if="readMoreActivated"
+                          @click="activateReadMore"
+                          href="#"
+                        >
                           show less...
                         </a>
                       </p>
@@ -44,15 +55,15 @@
                 </div>
               </div>
               <div>
-                    <v-chip
-                      small
-                      v-for="(category, index) in shop.categories"
-                      :key="index"
-                      class="ma-2"
-                    >
-                      {{ category.name }}
-                    </v-chip>
-                  </div>
+                <v-chip
+                  small
+                  v-for="(category, index) in shop.categories"
+                  :key="index"
+                  class="ma-2"
+                >
+                  {{ category.name }}
+                </v-chip>
+              </div>
             </v-col>
             <v-col md="4">
               <v-carousel v-if="shop.images" v-model="model" height="250px">
@@ -96,18 +107,17 @@ import Toolbar from "@/components/includes/Toolbar";
 import { mapState } from "vuex";
 import ProductList from "@/components/product/ProductList";
 
-
 export default {
   data() {
     return {
       model: 0,
       routeName: "shop",
-      readMoreActivated:false
+      readMoreActivated: false,
     };
   },
   computed: {
-    ...mapState("Shop", ["shop"]),
     ...mapState("Product", ["products"]),
+    ...mapState("Shop", ["shop"]),
     btnStatus() {
       let status = {
         color: "#488fef",
@@ -128,7 +138,6 @@ export default {
       };
 
       if (this.shop.status == 1) {
-        console.log(data);
         data.status = 2;
         this.$store.dispatch("Shop/changeStatus", data);
       } else {
@@ -136,37 +145,40 @@ export default {
         this.$store.dispatch("Shop/changeStatus", data);
       }
     },
-    activateReadMore(){
-      this.readMoreActivated = !this.readMoreActivated
-    }
+    activateReadMore() {
+      this.readMoreActivated = !this.readMoreActivated;
+    },
   },
   components: {
     Toolbar,
     ProductList,
   },
   created() {
-    this.$store.dispatch("Product/getProductsByShopId", this.shop.id);
+    this.$store.dispatch("Shop/getEachShop", { id: this.$route.params.shopId });
+    this.$store.dispatch(
+      "Product/getProductsByShopId",
+      this.$route.params.shopId
+    );
   },
 };
 </script>
 
 <style scoped>
-
-.shop-name{
+.shop-name {
   color: var(--text-color-primary);
   font-size: 20px;
   letter-spacing: var(--text-spacing);
 }
-.member-name{
+.member-name {
   letter-spacing: var(--text-spacing);
   color: var(--text-color-primary);
 }
-.description{
+.description {
   color: var(--text-color-primary) !important;
   line-height: 2;
 }
-.read-more{
-  color: #3AD1F1 !important;
+.read-more {
+  color: #3ad1f1 !important;
   text-decoration: none !important;
 }
 </style>

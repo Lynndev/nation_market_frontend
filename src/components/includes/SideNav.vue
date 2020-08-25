@@ -86,7 +86,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("User/logout");
+      this.$store.dispatch("User/logout").then(() => {
+        this.$store.dispatch("Cart/resetCartState");
+      });
     },
   },
 };

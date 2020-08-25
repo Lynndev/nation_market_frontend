@@ -47,8 +47,8 @@ const actions = {
       }
     });
   },
-  logout({ commit }) {
-    User.logout().then(() => {
+  async logout({ commit }) {
+    await User.logout().then(() => {
       localStorage.clear();
 
       commit("CHANGE_LOGGED_IN_STATUS");

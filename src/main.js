@@ -6,16 +6,27 @@ import Vuelidate from "vuelidate";
 import store from "./store";
 import "nprogress/nprogress.css";
 import moment from "moment";
+
 //Import Froala Editor
 import "froala-editor/js/plugins.pkgd.min.js";
-// Import Froala Editor css files.
 import "froala-editor/css/froala_editor.pkgd.min.css";
-
-// Import and use Vue Froala lib.
 import VueFroala from "vue-froala-wysiwyg";
 Vue.use(VueFroala);
 
+//import vue auto scroll
+import VueChatScroll from "vue-chat-scroll";
+Vue.use(VueChatScroll);
+
 Vue.use(Vuelidate);
+
+//moment package for date format
+Vue.filter("formatDateTime", function(value) {
+  if (value) {
+    return moment(value)
+      .add(24, "hours")
+      .format("LLL");
+  }
+});
 
 //moment package for date format
 Vue.filter("formatDate", function(value) {
