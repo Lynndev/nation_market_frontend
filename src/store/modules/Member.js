@@ -7,7 +7,9 @@ const state = {
   messages: [],
   chatMembers: [],
 };
-const getters = {};
+const getters = {
+
+};
 const mutations = {
   SET_MEMBERS(state, members) {
     state.members = members.data.data;
@@ -22,15 +24,17 @@ const mutations = {
   SET__BLOCK_MEMBERS(state, blockMembers) {
     state.blockMembers = blockMembers.data.data;
   },
-  APPEND_MESSAMGES(state, message) {
+  APPEND_MESSAMGES(state,message)
+  {
     state.messages.push(message);
   },
-  CHAT_MANAGE_MEMBER(state, member) {
-    state.chatMembers = state.chatMembers.filter((val) => {
-      return val.id != member.id;
-    });
-    state.chatMembers.unshift(member);
-  },
+  MANAGE_MEMBER(state,member)
+  {
+    state.members=state.members.filter((val)=>{
+      return val.id!=member.id;
+    })
+    state.members.unshift(member);
+  }
 };
 
 const actions = {
