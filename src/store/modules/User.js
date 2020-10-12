@@ -5,6 +5,7 @@ const state = {
   isLoggedIn: false,
   loginInfoError: false,
   adminData: {},
+  token:localStorage.getItem("nhm_token") || null,
 };
 const getters = {};
 const mutations = {
@@ -19,6 +20,9 @@ const mutations = {
   },
   CHANGE_LOGGED_IN_STATUS(state) {
     state.isLoggedIn = !state.isLoggedIn;
+  },
+  ADD_USER_TOKEN(state, payload) {
+    state.token = payload;
   },
 };
 
@@ -37,10 +41,10 @@ const actions = {
         };
 
         commit("CHANGE_LOGGED_IN_STATUS");
+        
+        commit("ADD_USER_TOKEN", user.data.data.token);
         commit("REMOVE_LOGIN_INFO_ERROR");
-
         dispatch("Notification/add", notification, { root: true });
-
         dispatch("getAdminData");
 
         router.push("/", () => {});

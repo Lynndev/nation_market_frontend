@@ -23,7 +23,7 @@ export default {
             const response = await apiClient.post(url,payload)
 
             if(response.data.success == true){
-                localStorage.setItem('token', response.data.data.token);
+                localStorage.setItem('nhm_token', response.data.data.token);
             }
 
             return response

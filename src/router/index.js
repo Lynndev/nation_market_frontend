@@ -156,11 +156,19 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/message-note",
+      name: "message_note",
+      component: lazyLoad("MessageNote"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem("token");
+  const loggedIn = localStorage.getItem("nhm_token");
 
   if (to.matched.some((record) => record.meta.forAuth) && !loggedIn) {
     next("/login");

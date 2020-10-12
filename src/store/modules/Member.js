@@ -5,11 +5,15 @@ const state = {
   members: [],
   blockMembers: [],
   messages: [],
+  chatMembers: [],
 };
 const getters = {};
 const mutations = {
   SET_MEMBERS(state, members) {
     state.members = members.data.data;
+  },
+  SET_CHAT_MEMBERS(state, members) {
+    state.chatMembers = members.data.data;
   },
   SET_MESSAMGES(state, messages) {
     state.messages = messages.data.data;
@@ -17,6 +21,15 @@ const mutations = {
   },
   SET__BLOCK_MEMBERS(state, blockMembers) {
     state.blockMembers = blockMembers.data.data;
+  },
+  APPEND_MESSAMGES(state, message) {
+    state.messages.push(message);
+  },
+  CHAT_MANAGE_MEMBER(state, member) {
+    state.chatMembers = state.chatMembers.filter((val) => {
+      return val.id != member.id;
+    });
+    state.chatMembers.unshift(member);
   },
 };
 
@@ -84,9 +97,10 @@ const actions = {
     });
   },
   getChatMembers({ commit }) {
+    commit("CHANGE_PRE_LOADING",{root:true});
     Member.getChatMembers().then((members) => {
-      console.log(members);
-      commit("SET_MEMBERS", members);
+      commit("SET_CHAT_MEMBERS", members);
+      commit("CHANGE_PRE_LOADING",{root:true});
     });
   },
   async getMemberMessages({ commit }, id) {
@@ -94,18 +108,22 @@ const actions = {
       commit("SET_MESSAMGES", messages);
     });
   },
-  sendMessageFromAdmin({ dispatch }, payload) {
-    Member.sendMessageFromAdmin(payload).then((response) => {
-      dispatch("getMemberMessages", payload.member_id).then(() => {
-        console.log(response);
-      });
-    });
+  async sendMessageFromAdmin({ commit }, payload) {
+    let response = await Member.sendMessageFromAdmin(payload);
+    commit("APPEND_MESSAMGES", response.data.data);
+    commit("CHAT_MANAGE_MEMBER", response.data.data.member);
+  },
+  appendMessage({ commit }, payload) {
+    commit("APPEND_MESSAMGES", payload);
   },
   getBlockMembers({ commit }) {
     Member.getBlockMembers().then((blockMembers) => {
       console.log(blockMembers);
       commit("SET__BLOCK_MEMBERS", blockMembers);
     });
+  },
+  manageMember({ commit }, payload) {
+    commit("CHAT_MANAGE_MEMBER", payload);
   },
 };
 
