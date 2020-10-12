@@ -6,7 +6,9 @@ const state = {
   blockMembers: [],
   messages: [],
 };
-const getters = {};
+const getters = {
+
+};
 const mutations = {
   SET_MEMBERS(state, members) {
     state.members = members.data.data;
@@ -18,6 +20,17 @@ const mutations = {
   SET__BLOCK_MEMBERS(state, blockMembers) {
     state.blockMembers = blockMembers.data.data;
   },
+  APPEND_MESSAMGES(state,message)
+  {
+    state.messages.push(message);
+  },
+  MANAGE_MEMBER(state,member)
+  {
+    state.members=state.members.filter((val)=>{
+      return val.id!=member.id;
+    })
+    state.members.unshift(member);
+  }
 };
 
 const actions = {
@@ -85,7 +98,6 @@ const actions = {
   },
   getChatMembers({ commit }) {
     Member.getChatMembers().then((members) => {
-      console.log(members);
       commit("SET_MEMBERS", members);
     });
   },
@@ -94,12 +106,16 @@ const actions = {
       commit("SET_MESSAMGES", messages);
     });
   },
-  sendMessageFromAdmin({ dispatch }, payload) {
-    Member.sendMessageFromAdmin(payload).then((response) => {
-      dispatch("getMemberMessages", payload.member_id).then(() => {
-        console.log(response);
-      });
-    });
+  async sendMessageFromAdmin({ commit }, payload) {
+   
+    let response=await Member.sendMessageFromAdmin(payload);
+    commit("APPEND_MESSAMGES", response.data.data);
+    commit("MANAGE_MEMBER",response.data.data.member);
+
+  },
+  appendMessage({commit},payload)
+  {
+    commit("APPEND_MESSAMGES", payload);
   },
   getBlockMembers({ commit }) {
     Member.getBlockMembers().then((blockMembers) => {
@@ -107,6 +123,10 @@ const actions = {
       commit("SET__BLOCK_MEMBERS", blockMembers);
     });
   },
+  manageMember({commit},payload)
+  {
+    commit("MANAGE_MEMBER", payload);
+  }
 };
 
 export default {
