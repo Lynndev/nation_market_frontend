@@ -20,7 +20,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(config => {
     NProgress.start()
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    config.headers.Authorization = `Bearer ${localStorage.getItem('nhm_token')}`
     store.commit('Loading/CHANGE_LOADING')
     //Config is the object of AxiosRequestConfig which contains URL, base URL, headers request, body data, response type, timeout, etc.
     return config

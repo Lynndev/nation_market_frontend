@@ -5,7 +5,7 @@ const state = {
   isLoggedIn: false,
   loginInfoError: false,
   adminData: {},
-  token:localStorage.getItem("token") || null,
+  token:localStorage.getItem("nhm_token") || null,
 };
 const getters = {};
 const mutations = {

@@ -5,6 +5,7 @@ const state = {
   members: [],
   blockMembers: [],
   messages: [],
+  chatMembers: [],
 };
 const getters = {
 
@@ -12,6 +13,9 @@ const getters = {
 const mutations = {
   SET_MEMBERS(state, members) {
     state.members = members.data.data;
+  },
+  SET_CHAT_MEMBERS(state, members) {
+    state.chatMembers = members.data.data;
   },
   SET_MESSAMGES(state, messages) {
     state.messages = messages.data.data;
@@ -97,8 +101,10 @@ const actions = {
     });
   },
   getChatMembers({ commit }) {
+    commit("CHANGE_PRE_LOADING",{root:true});
     Member.getChatMembers().then((members) => {
-      commit("SET_MEMBERS", members);
+      commit("SET_CHAT_MEMBERS", members);
+      commit("CHANGE_PRE_LOADING",{root:true});
     });
   },
   async getMemberMessages({ commit }, id) {
@@ -107,14 +113,11 @@ const actions = {
     });
   },
   async sendMessageFromAdmin({ commit }, payload) {
-   
-    let response=await Member.sendMessageFromAdmin(payload);
+    let response = await Member.sendMessageFromAdmin(payload);
     commit("APPEND_MESSAMGES", response.data.data);
-    commit("MANAGE_MEMBER",response.data.data.member);
-
+    commit("CHAT_MANAGE_MEMBER", response.data.data.member);
   },
-  appendMessage({commit},payload)
-  {
+  appendMessage({ commit }, payload) {
     commit("APPEND_MESSAMGES", payload);
   },
   getBlockMembers({ commit }) {
@@ -123,10 +126,9 @@ const actions = {
       commit("SET__BLOCK_MEMBERS", blockMembers);
     });
   },
-  manageMember({commit},payload)
-  {
-    commit("MANAGE_MEMBER", payload);
-  }
+  manageMember({ commit }, payload) {
+    commit("CHAT_MANAGE_MEMBER", payload);
+  },
 };
 
 export default {

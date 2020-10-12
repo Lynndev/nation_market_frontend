@@ -1,5 +1,5 @@
 <template>
-<v-responsive v-if="organizedMessages.length > 0" class="overflow-y-hidden fill-height" height="670">
+<v-responsive class="overflow-y-hidden fill-height" height="670">
     <v-card class="d-flex flex-column fill-height">
         <v-card-text v-chat-scroll="{ smooth: true }" class="flex-grow-1 overflow-y-auto">
             <template v-for="(msg, i) in organizedMessages">

@@ -22,7 +22,7 @@
                 </v-list>
             </v-responsive>
         </v-col>
-        <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
+        <v-col cols="auto" class="flex-grow-1 flex-shrink-0" v-if="!pre_loading">
             <chat-message :newMessages="messages" :memberId="memberId" />
         </v-col>
     </v-row>
@@ -65,13 +65,15 @@ export default {
         }
     },
     computed: {
-        ...mapState("Member", ["members"]),
+        ...mapState("Member", ["chatMembers"]),
         ...mapState("Loading", ["loading"]),
+        ...mapState("Loading", ["action_loading"]),
+        ...mapState("Loading", ["pre_loading"]),
         ...mapState("Member", ["messages"]),
 
         filterMembers() {
-            return this.members.filter(member => {
-                return member.name.toLowerCase().match(this.search);
+            return this.chatMembers.filter(chatMember => {
+                return chatMember.name.toLowerCase().match(this.search);
             });
         }
     },
@@ -93,7 +95,7 @@ export default {
             auth: {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token")
+                    Authorization: "Bearer " + localStorage.getItem("nhm_token")
                 }
             }
         });
@@ -106,8 +108,7 @@ export default {
                     this.$store.dispatch("Member/appendMessage", data.message);
                 }
             }
-            this.$store
-                .dispatch("Member/manageMember", data.message.member);
+            this.$store.dispatch("Member/manageMember", data.message.member);
 
             const notification = {
                 type: "success",
@@ -115,7 +116,6 @@ export default {
                 message: `You received a new message from ${data.message.member.name}`
             };
             this.$store.dispatch("Notification/add", notification);
-
         });
     }
 };
