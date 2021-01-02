@@ -7,9 +7,7 @@ const state = {
   messages: [],
   chatMembers: [],
 };
-const getters = {
-
-};
+const getters = {};
 const mutations = {
   SET_MEMBERS(state, members) {
     state.members = members.data.data;
@@ -24,17 +22,22 @@ const mutations = {
   SET__BLOCK_MEMBERS(state, blockMembers) {
     state.blockMembers = blockMembers.data.data;
   },
-  APPEND_MESSAMGES(state,message)
-  {
+  APPEND_MESSAMGES(state, message) {
     state.messages.push(message);
   },
-  MANAGE_MEMBER(state,member)
-  {
-    state.members=state.members.filter((val)=>{
-      return val.id!=member.id;
-    })
+  MANAGE_MEMBER(state, member) {
+    state.members = state.members.filter((val) => {
+      return val.id != member.id;
+    });
     state.members.unshift(member);
-  }
+  },
+  TOOGLE_MARK(state, payload) {
+    state.members = state.members.map((val) => {
+      if (val.id == payload) {
+        val.blue_mark = !val.blue_mark;
+      }
+    });
+  },
 };
 
 const actions = {
@@ -100,11 +103,28 @@ const actions = {
       commit("SET_MEMBERS", members);
     });
   },
+  getMarkMembers({ commit }) {
+    Member.getMarkMember().then((members) => {
+      commit("SET_MEMBERS", members);
+    });
+  },
   getChatMembers({ commit }) {
-    commit("CHANGE_PRE_LOADING",{root:true});
+    commit("CHANGE_PRE_LOADING", { root: true });
     Member.getChatMembers().then((members) => {
       commit("SET_CHAT_MEMBERS", members);
-      commit("CHANGE_PRE_LOADING",{root:true});
+      commit("CHANGE_PRE_LOADING", { root: true });
+    });
+  },
+  async toogleTrasureMark({ commit, dispatch }, payload) {
+    await Member.toogleMark(payload).then(() => {
+      commit("TOOGLE_MARK", payload.id);
+      const notification = {
+        type: "success",
+        status: true,
+        message: "Update Treasure Mark",
+      };
+
+      dispatch("Notification/add", notification, { root: true });
     });
   },
   async getMemberMessages({ commit }, id) {

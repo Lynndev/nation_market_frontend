@@ -40,6 +40,11 @@ export default {
 
     return Server.get_data(url);
   },
+  getMarkMember(){
+    const url = "member/get?blue_mark=1";
+
+    return Server.get_data(url);
+  },
   getChatMembers() {
     const url = "chat/getMember";
 
@@ -55,5 +60,10 @@ export default {
     let params = { member_id: id };
 
     return Server.get_data(url, params);
+  },
+  toogleMark(payload) {
+    const url = "member/addTreasureMark";
+
+    return Server.post_data(url, payload);
   },
 };

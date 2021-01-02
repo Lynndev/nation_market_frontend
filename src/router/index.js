@@ -164,6 +164,30 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/ads",
+      name: "ads",
+      component: lazyLoad("Ads/Ads"),
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: lazyLoad("Admin/Admin"),
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/admin/edit/:id",
+      name: "edit-admin",
+      component: lazyLoad("Admin/EditAdmin"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 

@@ -21,8 +21,26 @@ export default {
     MemberList,
 
   },
+  methods: {
+    getData(){
+      if (this.$route.query.mark)
+      {
+        this.$store.dispatch('Member/getMarkMembers')
+      }
+      else {
+        this.$store.dispatch('Member/getMembers')
+      }
+      
+    }
+  },
   created(){
-    this.$store.dispatch('Member/getMembers')
+      this.getData();
+  },
+  watch : {
+    $route()
+    {
+      this.getData();
+    }
   }
 };
 </script>

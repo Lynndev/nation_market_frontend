@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
-     <v-btn 
+     <!-- <v-btn 
      to="/property"
      class="edit-btn">
      <v-icon left >mdi-arrow-left-circle-outline</v-icon>
      Property
-     </v-btn>
+     </v-btn> -->
     <v-row justify="center">
      
       <v-col md="6">

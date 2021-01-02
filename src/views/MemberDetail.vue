@@ -114,6 +114,12 @@
               >Submit
             </v-btn>
             <template v-else>
+               <v-btn v-show="member.blue_mark==1" type="submit" @click="toogleTreasureMark" class="mark-btn blue white--text">
+                <v-icon small left>mdi-account-cancel-outline</v-icon>Remove Treasure Mark
+              </v-btn>
+              <v-btn v-show="member.blue_mark==0" type="submit" @click="toogleTreasureMark" class="mark-btn blue white--text">
+                <v-icon small left>mdi-account-cancel-outline</v-icon>Add Treasure Mark
+              </v-btn>
               <v-btn type="submit" @click="blockMember" class="submit-btn">
                 <v-icon small left>mdi-account-cancel-outline</v-icon>Block this
                 member
@@ -179,6 +185,9 @@ export default {
     ...mapState("Township", ["townships"]),
   },
   methods: {
+    toogleTreasureMark(){
+      this.$store.dispatch("Member/toogleTrasureMark",{id:this.member.id});
+    },
     storeMember() {
       this.$v.$touch();
       if (!this.$v.$invalid) {

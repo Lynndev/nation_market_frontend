@@ -51,6 +51,7 @@ export default {
       sideLists: [
         { route: "/", name: "Dashboard", icon: "mdi-view-dashboard-outline" },
         { route: "/member", name: "Member", icon: "mdi-account-group-outline" },
+        { route: "/admin", name: "Admin", icon: "mdi-package-variant" },
         {
           route: "/category",
           name: "Category",
@@ -78,6 +79,8 @@ export default {
           name: "Chat Box",
           icon: "mdi-chat-processing-outline",
         },
+        { route: "/ads", name: "Ads", icon: "mdi-package-variant" },
+        
       ],
     };
   },
