@@ -1,7 +1,7 @@
 <template>
 <v-container fluid>
     <v-row>
-        <v-col v-for="list in lists" :key="list.name" md="4">
+        <v-col v-for="list in lists" :key="list.name" md="4" v-show="!list.mainAdmin || (list.mainAdmin==true && adminData.role==3)">
             <router-link :to="list.route">
                 <v-card class="pa-3">
                     <div class="text-center icon">
@@ -16,18 +16,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
             lists: [{
                     route: "/payment-method",
                     name: "Payment Method",
-                    icon: "mdi-credit-card-outline"
+                    icon: "mdi-credit-card-outline",
+                    mainAdmin:true
                 },
                 {
                     route: "/currency",
                     name: "Currency",
-                    icon: "mdi-currency-usd-circle-outline"
+                    icon: "mdi-currency-usd-circle-outline",
+                    mainAdmin:true
                 },
                 {
                     route: "/message-note",
@@ -37,7 +40,9 @@ export default {
             ]
         };
     },
-    computed: {},
+    computed: {
+        ...mapState("User",["adminData"])
+    },
 
     components: {},
     methods: {},

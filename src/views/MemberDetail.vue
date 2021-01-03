@@ -45,7 +45,7 @@
                 >
                 </v-text-field>
 
-                <v-select
+                <!-- <v-select
                   :items="states"
                   class="mb-4"
                   item-text="name"
@@ -56,10 +56,10 @@
                   return-object
                   solo
                 >
-                </v-select>
+                </v-select> -->
 
                 <v-select
-                  v-show="showTownship"
+                  
                   :items="townships"
                   v-model="member.township_id"
                   item-text="name"
@@ -183,6 +183,8 @@ export default {
   computed: {
     ...mapState("States", ["states"]),
     ...mapState("Township", ["townships"]),
+    ...mapState("User", ["adminData"]),
+    
   },
   methods: {
     toogleTreasureMark(){
@@ -242,9 +244,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("States/getStates");
-
-    console.log(this.member);
+    this.$store.dispatch("Township/getTownshipByStateId",this.adminData.state_id);
   },
 };
 </script>

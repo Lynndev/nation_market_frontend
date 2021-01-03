@@ -15,6 +15,7 @@
       :key="sideList.name"
       :to="sideList.route"
       class="link-list-item"
+      v-show="(sideList.mainAdmin==true && adminData.role==3) || !sideList.mainAdmin"
     >
       <v-list-item-action>
         <v-icon class="link-icon">{{ sideList.icon }}</v-icon>
@@ -51,11 +52,12 @@ export default {
       sideLists: [
         { route: "/", name: "Dashboard", icon: "mdi-view-dashboard-outline" },
         { route: "/member", name: "Member", icon: "mdi-account-group-outline" },
-        { route: "/admin", name: "Admin", icon: "mdi-package-variant" },
+        { route: "/admin", name: "Admin", icon: "mdi-package-variant" ,mainAdmin:true},
         {
           route: "/category",
           name: "Category",
           icon: "mdi-clipboard-text-outline",
+          mainAdmin:true
         },
         { route: "/shop", name: "Shop", icon: "mdi-storefront" },
         {
@@ -63,11 +65,12 @@ export default {
           name: "State & Township",
           icon: "mdi-office-building",
         },
-        { route: "/package", name: "Package", icon: "mdi-package-variant" },
+        { route: "/package", name: "Package", icon: "mdi-package-variant" ,mainAdmin:true},
         {
           route: "/tnc",
           name: "Terms&Conditions",
           icon: "mdi-script-text-outline",
+          mainAdmin:true
         },
         {
           route: "/setting",
@@ -79,7 +82,7 @@ export default {
           name: "Chat Box",
           icon: "mdi-chat-processing-outline",
         },
-        { route: "/ads", name: "Ads", icon: "mdi-package-variant" },
+        { route: "/ads", name: "Ads", icon: "mdi-package-variant" ,mainAdmin:true},
         
       ],
     };

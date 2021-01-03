@@ -20,7 +20,7 @@
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-btn @click="showUpdateState(item)" color="grey darken-1" class="white--text" depressed>
+          <v-btn v-if="adminData.role==3" @click="showUpdateState(item)" color="grey darken-1" class="white--text" depressed>
             <v-icon small >
               mdi-pencil-outline
             </v-icon>
@@ -66,7 +66,8 @@ export default {
     };
   },
   computed:{
-    ...mapState('Loading',['loading'])
+    ...mapState('Loading',['loading']),
+    ...mapState('User',['adminData']),
   },
   methods:{
     getCategoriesByMainId(id){

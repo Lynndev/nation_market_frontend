@@ -67,6 +67,14 @@ const actions = {
                 commit('SET_STATES',states)
                 console.log(states);
             })
+    },
+    getStatesByID({commit},payload)
+    {
+        States.getStatesByID(payload)
+        .then(states => {
+            commit('SET_STATES',states)
+            console.log(states);
+        })
     }
 
 }

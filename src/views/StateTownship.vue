@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="4">
-          <state-store />
+          <state-store v-if="adminData.role==3"/>
       </v-col>
       <v-col md="4">
        <township-store :state="state"/>
@@ -41,6 +41,7 @@ export default {
   computed:{
     ...mapState('States',['states']),
     ...mapState('Township',['townships']),
+    ...mapState('User',['adminData']),
   },
   
   components:{
@@ -66,7 +67,14 @@ export default {
   },
 
   created(){
-    this.$store.dispatch('States/getStates')
+    if (this.adminData.role==3)
+    {
+      this.$store.dispatch('States/getStates')
+    }
+    else {
+      this.$store.dispatch('States/getStatesByID',{id:this.adminData.state_id});
+    }
+    
   }
 };
 </script>

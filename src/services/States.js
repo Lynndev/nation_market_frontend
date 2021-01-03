@@ -20,5 +20,11 @@ export default{
         const url = '/state/get'
 
         return Server.get_data(url)
+    },
+    getStatesByID(params)
+    {
+        const url = '/state/get?'
+
+        return Server.get_data(url,params)
     }
 }

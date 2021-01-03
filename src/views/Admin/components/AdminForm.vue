@@ -5,7 +5,7 @@
     <v-spacer></v-spacer>
     <label>Role</label>
     <v-select
-      :items="[{name:'Admin',id:1},{name:'Editor',id:2}]"
+      :items="[{name:'Main Admin',id:3},{name:'Admin',id:1},{name:'Editor',id:2}]"
       class="mb-4"
       item-text="name"
       item-value="id"

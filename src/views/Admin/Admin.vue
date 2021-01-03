@@ -11,6 +11,7 @@
         <template v-slot:item.role="{ item }">
           <span v-if="item.role==1">Admin</span>
           <span v-else-if="item.role==2">Editor</span>
+          <span v-else-if="item.role==3">Main Admin</span>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-icon color="blue darken-2" class="mr-2" @click="$router.push(`/admin/edit/${item.id}`)">mdi-pencil-outline</v-icon>
