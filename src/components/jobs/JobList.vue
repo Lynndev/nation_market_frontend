@@ -2,15 +2,23 @@
   <v-card>
     <div class="d-flex align-baseline flex-row header">
       <div>
-        <h2 class="header-title">Currency Table</h2>
+        <h2 class="header-title">Job List Table</h2>
       </div>
     </div>
     <v-data-table
       :headers="headers"
       :loading="loading"
-      :items="currencys"
+      :items="jobs"
       :items-per-page="5"
     >
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          color="yellow darken-2"
+          class="mr-2"
+          @click="$router.push(`/edit-job/${item.id}`)"
+          >mdi-pencil-outline</v-icon
+        >
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -18,7 +26,7 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    currencys: {
+    jobs: {
       type: Array,
     },
   },
@@ -29,17 +37,20 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Date", value: "date" },
-        { text: "MM Kyat", value: "kyat" },
-        { text: "Yuan", value: "yuan" },
-        { text: "Baht", value: "baht" },
+        { text: "Position", value: "position" },
+        { text: "Company", value: "company" },
+        { text: "Location", value: "location" },
+        {
+          text: "actions",
+          value: "actions",
+          align: "center",
+        },
       ],
     };
   },
   methods: {},
 };
 </script>
-
 <style scoped>
 .header {
   padding: 15px 0px;

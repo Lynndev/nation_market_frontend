@@ -188,6 +188,22 @@ const router = new Router({
         forAuth: true,
       },
     },
+    {
+      path: "/jobs",
+      name: "job",
+      component: lazyLoad("Job"),
+      meta: {
+        forAuth: true,
+      },
+    },
+    {
+      path: "/edit-job/:id",
+      name: "edit-job",
+      component: lazyLoad("EditJob"),
+      meta: {
+        forAuth: true,
+      },
+    },
   ],
 });
 

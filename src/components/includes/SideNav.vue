@@ -59,6 +59,12 @@ export default {
           icon: "mdi-clipboard-text-outline",
           mainAdmin:true
         },
+         {
+          route: "/jobs",
+          name: "Job",
+          icon: "mdi-clipboard-text-outline",
+          mainAdmin:true
+        },
         { route: "/shop", name: "Shop", icon: "mdi-storefront" },
         {
           route: "/state-township",
