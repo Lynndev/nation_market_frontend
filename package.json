@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "laravel-echo": "^1.8.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "pusher-js": "^7.0.0",
     "socket.io": "^2.3.0",
