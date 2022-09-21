@@ -19,7 +19,7 @@
     "vue-froala-wysiwyg": "^3.1.1-1",
     "vue-router": "^3.1.6",
     "vuelidate": "^0.7.5",
-    "vuetify": "^2.2.11",
+    "vuetify": "^2.6.10",
     "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
